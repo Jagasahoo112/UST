@@ -1,0 +1,149 @@
+<div class="container-fluid p-0">
+  <main-navbar></main-navbar>
+  <div class="h2 text-center my-3">Research Intelligence<div *ngIf="countcheckbox>0"  style="float: right;">
+    <img src="assets/images/download-icon-images-15.jpg" class="img-fluid-downloadImage"  data-toggle="modal" data-target="#filePickerModal"   /> 
+  </div></div>
+  
+  
+  <div class="nav-link col-12" >
+      <div   class="d-flex mb-3" >
+        <div class="input-group">
+        <input class="form-control" type="search" (search)="clear()" placeholder="Search the content what you want" [(ngModel)]="Search" [ngModelOptions]="{standalone: true}"   aria-label="Search"   (keyup)="sendMessageToServer(txtSearch.value)"  (keyup.enter)="OnTextSearchClick(txtSearch.value)" #txtSearch>
+        <div class="input-group-prepend">
+          <span class="input-group-text"><fa-icon icon="search" class="searchIcon" (click)="OnTextSearchClick(txtSearch.value)"></fa-icon></span>
+      </div>
+      </div> 
+      </div>
+  </div>
+  <div   class="nav-link col-12" class="suggestionsearch" >
+    <app-resume-search-query-suggestions  #sourceTextAreaSuggestion (searchkeyvalue)="selectitemfromchild($event)"></app-resume-search-query-suggestions>
+
+</div>    
+  <div class="container-fluid">
+    <div class="">
+      <div class="d-flex flex-column align-items-center" *ngIf="isLoading">
+        <img src="assets/images/analyse-image.gif" class="img-fluid" />
+        <div class="d-flex flex-row align-items-center">
+          <div class="text-info">
+            <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+          </div>
+          <div class="text-info">Searching...</div>
+        </div>
+      </div>
+  
+      <div class="d-flex flex-column align-items-center"
+        *ngIf="resultsetresponse !=[] && !isLoading && isnorecord">
+        <img src="assets/images/no-results.png" class="img-fluid" />
+        <div class="d-flex flex-row align-items-center">
+          <div class="text-info">
+            <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+          </div>
+          <div class="text-info">No search result available for the searched text!</div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!isLoading">
+      <div class="col-md-2">   
+          <div class="list-group" id="list-tab" role="tablist" >
+            
+              
+                <a *ngFor="let inc of resultsetresponse;   let i = index"  class="list-group-item list-group-item-action"  id="list-prince-list" (click)="oncliclick(inc.id,i)" data-toggle="list" href="#list-prince" role="tab" aria-controls="prince">
+            
+           <img src="assets/images/{{inc.icon}}" class="img-fluid-letfmenu" />   <span> {{inc.name}}</span> <span> {{inc.space}} </span>
+         
+          <div id="rightbox" *ngIf="inc.count>0">
+            <span class="circle"><label #countdisplay>{{inc.count}}</label></span>
+          </div> </a>  
+               
+            
+            </div>
+           
+      </div><br>
+
+      <div class="col-md-10">
+  <div>
+    <input type="hidden"   value={{hdnsearchname}} #hdnsearchnames/> 
+    <input type="hidden"     value={{hdnsearchtextIdex}} #hdnsearchtextIdexs/>  
+    <div  *ngFor="let user of onclickresult let i = index " id="listdisplay"> 
+      <div *ngIf="!isvideoorimageurl" class="card">
+        <div class="card-header"> 
+            <input type="checkbox" class="largerCheckbox" [checked]=user.checked   (click)="changed($event,hdnsearchnames.value,hdnsearchtextIdexs.value,i)"> &nbsp;
+    
+           <a href="{{user.url}}." target="_blank">  {{user.name}}  </a>  
+        </div>
+        <div class="card-body">  
+          <p class="card-text">{{user.snippet}}.</p>
+        </div> 
+        <div class="card-footer">
+          <small class="text-muted"> <img src="assets/images/Searchimg.png" class="img-fluid-letfmenu" /> {{user.query}}.</small>
+        </div>  
+       </div>
+    </div>
+    <div *ngIf="isvideoorimageurl">
+      <div class="card-body" *ngIf="isimageurl" >   
+            <mat-grid-list cols="3" rowHeight="2:1"  gutterSize="15px">
+              <mat-grid-tile *ngFor="let user of onclickresult let i = index " (click)="changed($event,hdnsearchnames.value,hdnsearchtextIdexs.value,i)" class="{{user.Imagecss}}">
+                
+    
+                <a href="{{user.url}}." target="_blank" id ="{{ 'imageId_' + i }}"> 
+                  <img src="{{user.url}}" class="imageurlclass"  />.</a></mat-grid-tile> 
+            </mat-grid-list> 
+      </div>  
+      <div class="card-body" *ngIf="!isimageurl" >   
+        <mat-grid-list cols="3" rowHeight="2:1"  gutterSize="15px" >
+          <mat-grid-tile *ngFor="let user of onclickresult let i = index " (click)="changed($event,hdnsearchnames.value,hdnsearchtextIdexs.value,i)" class="{{user.Videocss}}"> 
+            <a href="{{user.url}}." target="_blank" id ="{{ 'videoId_' + i }}">
+              {{user.url}}</a></mat-grid-tile> 
+        </mat-grid-list> 
+  </div>  
+      <br>  
+      
+    </div>
+  </div> 
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="filePickerModal" tabindex="-1" role="dialog" aria-labelledby="filePickerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="filePickerModalLabel">Choose Templates to Add</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body"> 
+          <div>           
+            <div class="bs-stepper-content">
+              
+                <div id="test-l-1" class="content">
+                  <div class="list-group">
+                
+                    <a *ngFor="let template of templateList; let i= index" (click)="selectTemplate(i)" style="cursor:pointer" class="list-group-item list-group-item-action" [ngClass]="{'active': i==selectedTemplateIndex}">
+                        <div class="d-flex justify-content-lg-between align-items-center">
+                            <img src="{{getFullAssetUrl(template.thumbnailPath)}}" width="200" />
+                            <div class="h4">{{template.templateName}}</div>
+                        </div>
+                    </a>
+                
+                </div>
+                </div> 
+              
+            </div>
+        </div>
+  
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary btn-primary mr-2" >Generate</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  
+

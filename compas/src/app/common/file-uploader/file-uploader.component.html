@@ -1,0 +1,3 @@
+<form #demoForm="ngForm">
+    <file-upload [(ngModel)]="uploadedFiles" (change)="fileSectected()" [disabled]="isDisabled" [multiple]="allowMultipleFiles" name="files"></file-upload>
+</form>

@@ -1,0 +1,43 @@
+<div class="container-fluid p-0">
+    <main-navbar></main-navbar>
+
+    <div class="p-3">
+
+        <div class="h2 text-center mb-3">Intelligent MoM Extraction</div>
+
+        <div class="d-flex flex-row justify-content-end px-3 mb-3">
+             <button type="button" class="btn btn-lg btn-primary mr-2" (click)="extractMom()" [disabled]="isProcessing">
+            <span class="spinner-border spinner-border-sm" [class.d-none]="!isProcessing" role="status"
+              aria-hidden="true"></span>
+             Generate Minutes</button>
+          <button type="button" class="btn btn-lg btn-danger" (click)="reset()">Reset</button>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <intelligent-mom-conversation-listing #intelligentMomConversationListing ></intelligent-mom-conversation-listing>
+                </div>
+            </div>
+
+           <div class="row">
+               <div class="col">
+                   <h2>&nbsp;</h2>
+               </div>
+           </div>
+
+            <div class="row">
+                <div class="col-lg mt-3">
+                    <intelligent-mom-summary #intelligentMomSummary></intelligent-mom-summary>
+                </div>
+
+                <div class="col-lg mt-3">
+                    <intelligent-mom-action-items-listing #intelligentMomActionItemsListing></intelligent-mom-action-items-listing>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+  

@@ -1,0 +1,40 @@
+<div class="mb-2">
+    <div class="input-group">
+
+        <input class="form-control" type="search" (keyup.enter)="searchResume()" placeholder="Search Files" aria-label="search" id="resumeKeyword">
+        <div class="input-group-prepend">
+            <button class="input-group-text">
+                <fa-icon icon="search" (click)="searchResume()"></fa-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-0 offset-0">
+        <div class="d-flex flex-column align-items-center" *ngIf="isProcessing">
+            <img src="assets/images/analyse-image.gif" class="img-fluid" />
+            <div class="d-flex flex-row align-items-center">
+                <div class="text-info">
+                    <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+                </div>
+                <div class="text-info">Searching Resumes...</div>
+            </div>
+        </div>
+        <div class="d-flex py-2 justify-content-center"
+            *ngIf="isSearchStarted && sidePanelContent.length === 0  &&  !isProcessing">
+
+            <div class="text-info">
+                <fa-icon icon="info-circle" size="lg" class="mr-2"></fa-icon>
+            </div>
+            <div class="text-muted">No Resumes Found!</div>
+
+        </div>
+    </div>
+
+    <div class="accordion" *ngIf="!isProcessing && sidePanelContent != []" id="accordionExample">
+
+        <app-resume-document-view *ngIf="!isProcessing" #ResumeDocumentViewComponent>
+        </app-resume-document-view>
+    </div>
+
+
+</div>

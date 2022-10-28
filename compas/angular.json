@@ -1,0 +1,161 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "solutionslab-beta": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/solutionslab-beta",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss",
+              "./node_modules/bs-stepper/dist/css/bs-stepper.min.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/tippy.js/dist/tippy.css",
+              "./node_modules/tippy.js/themes/light.css",
+              "src/assets/DataVisualization/TemplateData/style.css",
+              "src/assets/Telepresence/TemplateData/unityStyle.css",
+              "node_modules/ngx-toastr/toastr.css"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/popper.js/dist/umd/popper.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/js/fabric.min.js",
+              "./node_modules/bs-stepper/dist/js/bs-stepper.min.js",
+              "./node_modules/quill/dist/quill.js",
+              "./node_modules/trumbowyg/dist/trumbowyg.min.js",
+              "src/assets/js/data-visualization.js",
+              "src/assets/js/text-to-speech.js",
+              "src/assets/js/real-time-speech-recognition.js",
+              "src/assets/js/speech-recognition.js", 
+              "src/assets/js/telepresence.js",
+              "src/assets/DataVisualization/TemplateData/UnityProgress.js",
+              "src/assets/DataVisualization/Build/UnityLoader.js",
+              "src/assets/js/virtual-patform.js" ,
+              "src/assets/js/SpeechSDK-JavaScript-1.17.0/microsoft.cognitiveservices.speech.sdk.bundle.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ] 
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "solutionslab-beta:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "solutionslab-beta:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "solutionslab-beta:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": [
+              "./node_modules/bootstrap/dist/bootstrap.min.js",
+              "./node_modules/jquery/dist/jquery.min.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "solutionslab-beta:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "solutionslab-beta:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "solutionslab-beta",
+  "cli": {
+    "analytics": false
+  }
+}

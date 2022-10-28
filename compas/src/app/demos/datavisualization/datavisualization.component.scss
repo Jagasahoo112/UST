@@ -1,0 +1,25 @@
+input, button{
+    padding: 10px;
+  }
+  .button {
+  background-color: #4c6baf;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button:hover  {
+  padding-right: 25px;
+  background-color: #ecbd3a;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.webgl-content1 {position: absolute; top: 55%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
+#unity-fullscreen-button-data { float: inherit; width: 38px; height: 38px; background: url('../../../assets/DataVisualization/TemplateData/fullscreen-button.png') no-repeat center }

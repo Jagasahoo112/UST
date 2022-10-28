@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <div class="col-md-6 offset-3">
+    <div class="d-flex flex-column align-items-center" *ngIf="isProcessing">
+      <img src="assets/images/analyse-image.gif" class="img-fluid" />
+      <div class="d-flex flex-row align-items-center">
+        <div class="text-info">
+          <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+        </div>
+        <div class="text-info">Searching...</div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column align-items-center"
+      *ngIf="isSearchStarted && sidePanelContent.length === 0 && !isProcessing">
+      <img src="assets/images/no-results.png" class="img-fluid" />
+      <div class="d-flex flex-row align-items-center">
+        <div class="text-info">
+          <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+        </div>
+        <div class="text-info">No search result available for the searched text!</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+
+
+
+      <div class="accordion" *ngIf="!isProcessing && sidePanelContent != []" id="accordionExample">
+
+        <div class="card" *ngFor="let item of sidePanelContent ; let i = index">
+
+          <div>
+            <button class="btn btn-link w-100" type="button" data-toggle="collapse"
+              [attr.data-target]="'#collapse-' + i" aria-expanded="false" aria-controls="{{'collapse-'+i}}">
+
+              <div class="d-flex">
+                <div class="text-muted">
+                  <fa-icon class="float-left" size="lg" icon="file-alt"> </fa-icon>
+                </div>
+                <div class="text-muted ml-2" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                  {{item.fileName}}</div>
+
+                <div class="ml-auto text-muted">
+                  <fa-icon class="fa fa-chevron-right pull-right mr-2" icon="chevron-down"></fa-icon>
+                  <fa-icon class="fa fa-chevron-down pull-right mr-2" icon="chevron-up"></fa-icon>
+                </div>
+              </div>
+            </button>
+          </div>
+          <div id="{{'collapse-'+i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              <div class="list-group">
+                <li *ngFor="let fileContent of item.content ; let j = index"
+                  (click)="pageContentDisplay(item,fileContent.context,j)"
+                  class="list-group-item d-flex flex-row align-items-center nav-link">
+                  <div class="w-100">
+                    <div [innerHtml]="fileContent.context | trailingText">
+                    </div>
+                  </div>
+
+                  <div class="ml-auto">
+                    <fa-icon icon="chevron-right"></fa-icon>
+                  </div>
+                </li>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <app-search-result-file-view *ngIf="!isProcessing" #SearchResultFileView></app-search-result-file-view>
+      <div class="d-flex flex-column align-items-center" *ngIf="isContentLoaded">
+        <img src="assets/images/no-results.png" class="img-fluid" />
+        <div class="d-flex flex-row align-items-center">
+          <div class="text-info">
+            <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+          </div>
+          <div class="text-info">Select A File To View Content</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

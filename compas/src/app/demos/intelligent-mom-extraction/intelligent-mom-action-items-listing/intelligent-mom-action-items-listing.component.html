@@ -1,0 +1,50 @@
+<div class="card">
+    <div class="card-header d-flex flex-row">
+
+        <fa-icon size="lg" icon="clipboard-list"></fa-icon> 
+        <div class="h5 text-dark ml-2">Action Items</div>  
+    </div>
+
+    <div *ngIf="isProcessing" class="d-flex flex-column justify-content-center">
+      <div><img src="assets/images/loading-big.gif" height="100" /></div>
+      <div class="text-info p-3">Hold on! We're building the Action Items List.</div>
+    </div>
+
+    <div *ngIf="!isProcessing && (actionItems == null || actionItems.length == 0)" class="card-body" >
+      <div> <fa-icon icon="info-circle"></fa-icon> Action Items not extracted yet! <br/></div>
+    </div>
+
+
+    <ul class="list-group list-group-flush">
+
+      <!-- <li *ngIf="actionItems == null || actionItems.length == 0" class="list-group-item">
+        <div> <fa-icon icon="info-circle"></fa-icon> Action Items not extracted yet! <br/></div>
+      </li> -->
+      
+      
+      <li *ngFor="let actionItem of actionItemsViewModel"  class="list-group-item">
+
+        <div class="d-flex flex-row align-items-center">
+
+          <div class="d-flex flex-column flex-fill">
+            <div class="d-flex flex-row">
+              <div class="mr-2" ><fa-icon size="lg" icon="user-tie"></fa-icon></div>
+              <div class="badge badge-primary mr-2">{{actionItem.assignor}}</div>
+              <div class="mr-2"><fa-icon icon="long-arrow-alt-right"></fa-icon></div>
+              <div class="badge badge-primary mr-2">{{actionItem.assignee}}</div>
+              <div *ngIf="actionItem.targetDate.length > 0"  class="ml-auto">
+                <fa-icon icon="clock" size="lg"></fa-icon>
+                <div class="badge badge-primary ml-1">{{actionItem.targetDate}}</div>
+              </div>
+            </div>
+
+              <div class="mt-2">{{actionItem.task}}</div>
+          </div>
+
+
+          <div class="ml-auto pl-3"><fa-icon icon="chevron-right"></fa-icon></div>
+        </div>
+      </li>
+      
+    </ul>
+  </div>

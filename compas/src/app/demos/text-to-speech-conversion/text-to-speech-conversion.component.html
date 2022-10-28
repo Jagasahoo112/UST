@@ -1,0 +1,145 @@
+<div class="container-fluid p-0">
+  <main-navbar></main-navbar>
+
+  <div class="p-3">
+    <div class="h4 text-center mb-3">REAL-TIME SPEECH SYNTHESIS</div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-header d-flex flex-row">
+            <fa-icon size="lg" icon="file-alt"></fa-icon>
+            <div class="h5 text-dark ml-2">Source Document</div>
+            <div class="ml-auto"><button class="btn btn-lg btn-success" data-toggle="modal"
+                data-target="#filePickerModal">
+                <fa-icon icon="file-upload" size="lg"></fa-icon> Upload
+              </button>
+            </div>
+            <div class="ml-2"><button type="button" (click)="reset()" id="resetFields"
+                class="btn btn-lg  btn-danger rounded ">
+                <fa-icon icon="trash"></fa-icon> RESET
+              </button>
+            </div>
+            <div class="ml-2">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <input id="subscriptionKey" type="hidden" placeholder="YourSubscriptionKey"
+                value="910098f99d48449daf094d814813de9e" />
+              <div class="col-lg  d-none">
+                <select id="regionOptions" class="form-control">
+                  <option value="westeurope" selected="selected">West Europe</option>
+                </select>
+              </div>
+              <div class="col ml-auto">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text text-secondary" id="inputGroup-sizing-default">
+                      <fa-icon icon="podcast" size="lg"></fa-icon>
+                    </span>
+                  </div>
+                  <select id="voiceOptions" class="form-control" disabled>
+                    <option>Please update voice list first.</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col ml-auto ">
+                <span class="d-flex border rounded p-2">
+                  <fa-icon class="mr-2 text-muted" icon="tachometer-alt" size="lg"></fa-icon>
+                  <input title="Speaking speed" type="range" id="speed" name="speed" min="-100" max="200" value="0"
+                    class=" form-control-range" data-bi-id="demo-rate-slider" aria-label="Speaking speed">
+                </span>
+              </div>
+              <div class="col d-none">
+                <div class="custom-control custom-checkbox mt-2">
+                  <input type="checkbox" checked class="custom-control-input" id="isSSML" name="isSSML" value="ssml">
+                  <label class="custom-control-label" for="customCheck1">Is SSML</label>
+                </div>
+              </div>
+
+              <div class="col justify-content-end d-flex flex-row">
+
+                <div class="btn-group py-2" role="group" aria-label="Basic example">
+                  <button id="startSynthesisAsyncButton" [disabled]="!textValidated" class="btn  btn-success">
+                    <fa-icon icon="play"></fa-icon>
+                  </button>
+                  <button id="pauseButton" class="btn  btn-secondary  ">
+                    <fa-icon icon="pause"></fa-icon>
+                  </button>
+                  <button id="resumeButton" class="btn  btn-success  ">
+                    <fa-icon icon="play"></fa-icon>
+                  </button>
+                  <button id="stopButton" class="btn  btn-danger">
+                    <fa-icon icon="stop"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="m-0 p-0" class="richTextEditor" (input)="enablePlay()" #sourceTextEditor id="synthesisText"
+              placeholder="Paste your text here!"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<!-- Modal -->
+<div class="modal fade" id="filePickerModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="filePickerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filePickerModalLabel">Source Document</h5>
+      </div>
+      <div class="modal-body">
+
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title d-flex flex-row justify-content-between">
+              <h5 class="text-primary">Upload File</h5>
+              <button class="btn btn-primary" (click)="uploadFile()" [disabled]="!isFileSelected">
+                <fa-icon icon="upload"></fa-icon>
+                <span class="ml-1">Upload</span>
+                <span class="ml-1 spinner-border spinner-border-sm align-middle" [class.d-none]="!isUploadingFile"
+                  role="status" aria-hidden="true"></span>
+              </button>
+            </div>
+            <file-uploader #fileUploader [allowMultipleFiles]="false"></file-uploader>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="clearSelectedFiles()" [disabled]="isUploadingFile"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Content Extraction Failed Modal -->
+<div class="modal fade" id="fileExtractFailedModal" tabindex="-1" role="dialog" aria-labelledby="filePickerModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filePickerModalLabel">Failed</h5>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="card-title d-flex flex-row ">
+              <h5><span class="mr-1 text-danger align-middle">
+                  <fa-icon icon="times-circle" size="2x"></fa-icon>
+                </span>
+                <span class="align-middle">Error processing file. Please try later.</span>
+              </h5>
+            </div>
+            <button type="button" class="btn btn-secondary text-center" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>

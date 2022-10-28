@@ -1,0 +1,21 @@
+<div *ngIf="newsletterHtml.length == 0" class="d-flex flex-column justify-content-center">
+    <div><img src="assets/images/loading-big.gif"  /></div>
+    <div class="h3 text-info p-3">Hold on! Your newsletter is getting generated.</div>
+</div>
+
+<div [hidden]="!isNewsletterContentAvailable">
+    <div class="d-flex justify-content-end mb-3">
+
+        <button class="btn btn-success btn-lg mr-2" (click)="downloadWord()" [disabled]="isDownloadingWord">
+            <fa-icon icon="file-word" size="lg"></fa-icon> Download Word
+            <span class="spinner-border align-middle" [class.d-none]="!isDownloadingWord"  role="status" aria-hidden="true"></span>
+        </button>
+
+        <button class="btn btn-success btn-lg" (click)="downloadPdf()" [disabled]="isDownloadingPdf">
+            <fa-icon icon="file-pdf" size="lg"></fa-icon> Download PDF
+            <span class="spinner-border align-middle" [class.d-none]="!isDownloadingPdf"  role="status" aria-hidden="true"></span>
+        </button>
+    </div>
+    <!-- <quill-editor #previewEditor></quill-editor> -->
+    <div class="richTextEditor" id="previewEditor"></div>
+</div>

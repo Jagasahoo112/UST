@@ -1,0 +1,69 @@
+<div *ngIf="resumeAnalysisData == null" class="d-flex flex-column align-items-center">
+    <img src="assets/images/analyse-image.gif" class="img-fluid" />
+    <div class="d-flex">
+        <div class="text-warning">
+            <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+        </div>
+        <div class="text-muted">Analysing Resume...</div>
+    </div>
+</div>
+
+
+<div *ngIf="resumeAnalysisData != null">
+
+    <div class="card">
+    <div class="card-header">
+        RESUME CLASSIFICATION
+    </div>
+    <div class="card-body">
+
+        <h5>PROFILE MATCH: {{resumeAnalysisData.clusterTag}}</h5>
+    </div>
+</div>
+
+
+<div class="card mt-2">
+    <div class="card-header">
+        RESUME EXTRACT
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li *ngFor="let extractedField of resumeAnalysisData.parsedDetails | keyvalue" class="list-group-item">
+                <div class="d-flex flex-column">
+                    <div class="text-uppercase"><small><b>{{extractedField.key}}</b></small></div>
+                    <div *ngIf="isList(extractedField.value)">
+                        <ul  class="list-group">
+                            <li *ngFor="let item of extractedField.value" class="list-group-item">
+                                {{item}}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div *ngIf="!isList(extractedField.value)">
+                        <div *ngIf="extractedField?.value != null && extractedField?.value.length > 0" class="badge badge-secondary"> {{extractedField.value}}</div>
+                        <div *ngIf="extractedField?.value == null || extractedField?.value.length == 0" class="badge badge-warning"> NO VALUE</div>
+                    </div>
+                </div>
+
+            </li>
+            
+          </ul>
+
+    </div>
+</div>
+
+
+
+<div class="card mt-2">
+    <div class="card-header">
+        RESUME WORD CLOUD
+    </div>
+    <div class="card-body">
+
+        <span *ngFor="let item of resumeAnalysisData.wordCloud" class="badge badge-info m-1">
+            {{item}}
+        </span>
+        
+    </div>
+</div>
+</div>

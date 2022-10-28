@@ -1,0 +1,42 @@
+#login-left{
+    background-image: url("./assets/images/login-left.jpg");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: cover;
+    min-height: 700px;
+}
+
+.image-analysis-canvas {
+    width:100;
+    height:auto;
+}
+
+
+.trumbowyg-box {
+    height:100%;
+    min-height:auto;
+    margin: auto;
+    flex: 1;
+}
+
+
+.trumbowyg-editor,
+.trumbowyg-textarea {
+    min-height: calc(100% - 39px);
+}
+
+.richTextEditor {
+    min-height: 300px;
+}
+
+.user-thumbnail {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+  
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }

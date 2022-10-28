@@ -1,0 +1,116 @@
+<div class="container-fluid">
+  <div class="">
+    <div class="d-flex flex-column align-items-center" *ngIf="isProcessing">
+      <img src="assets/images/analyse-image.gif" class="img-fluid" />
+      <div class="d-flex flex-row align-items-center">
+        <div class="text-info">
+          <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+        </div>
+        <div class="text-info">Searching...</div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column align-items-center"
+      *ngIf="isSearchStarted  && sidePanelContent.length === 0  && !isProcessing">
+      <img src="assets/images/no-results.png" class="img-fluid" />
+      <div class="d-flex flex-row align-items-center">
+        <div class="text-info">
+          <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+        </div>
+        <div class="text-info">No search result available for the searched text!</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+
+
+
+      <div class="accordion" *ngIf="!isProcessing && sidePanelContent != []" id="accordionExample">
+
+        <div class="card" *ngFor="let item of sidePanelContent ; let i = index">
+
+          <div (click)=Openfile(item,i)>
+            <button class="btn btn-link w-100" type="button" data-toggle="collapse"
+              [attr.data-target]="'#collapse-' + i" aria-expanded="false" aria-controls="{{'collapse-'+i}}">
+
+              <div class="d-flex">
+                <div class="text-muted">
+                  <fa-icon class="float-left" size="lg" icon="file-alt"> </fa-icon>
+                </div>
+                <div class="text-muted ml-2" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                  {{item.fileName}}</div>
+
+                <div class="ml-auto text-muted">
+                  <fa-icon class="fa fa-chevron-right pull-right mr-2" icon="chevron-down"></fa-icon>
+                  <fa-icon class="fa fa-chevron-down pull-right mr-2" icon="chevron-up"></fa-icon>
+                </div>
+
+              </div>
+            </button>
+          </div>
+          <div id="{{'collapse-'+i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              <div class="list-group">
+                <li *ngFor="let fileContent of item.content ; let j = index"
+                  (click)="pageContentDisplay(item,fileContent.context,j)"
+                  class="list-group-item d-flex align-items-center nav-link">
+                  <div class="w-100">
+
+                    <div [innerHtml]="fileContent.context">
+                    </div>
+
+                  </div>
+                  <div class="ml-auto">
+                    <fa-icon icon="chevron-right"></fa-icon>
+                  </div>
+                </li>
+
+              </div>
+
+            </div>
+          </div>
+          
+        </div>
+        <pdf-viewer [src]="ispdfviewr" [render-text]="true" style="display: block;">
+        </pdf-viewer>
+      </div>
+    </div>
+    <div class="col-md-8">
+
+      <div *ngIf="isFileSelected">
+        <ul class="nav nav-tabs justify-content-end" id="resumeViewModeTab">
+          <li class="nav-item">
+            <a class="nav-link active" id="view-tab" data-toggle="tab" href="#view" role="tab" aria-controls="view"
+              aria-selected="true"><small>View</small> </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="analyse-tab" data-toggle="tab" href="#analyse" role="tab" aria-controls="analyse"
+              aria-selected="false"><small>Analyse</small></a>
+          </li>
+        </ul>
+
+        <div class="tab-content py-2" style="overflow: scroll; height: 790px;">
+          <div class="tab-pane active" id="view" role="tabpanel" aria-labelledby="view-tab">
+            <app-resume-search-result-file-view #SearchResultFileView></app-resume-search-result-file-view>
+          </div>
+          <div class="tab-pane" id="analyse" role="tabpanel" aria-labelledby="analyse-tab">
+            <app-resume-analyze #ResumeAnalysisView></app-resume-analyze>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="d-flex flex-column align-items-center" *ngIf="isContentLoaded && !isFileSelected">
+        <img src="assets/images/no-results.png" class="img-fluid" />
+        <div class="d-flex flex-row align-items-center">
+          <div class="text-info">
+            <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+          </div>
+          <div class="text-info">Select A Resume To View Content</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

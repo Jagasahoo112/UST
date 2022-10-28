@@ -1,0 +1,88 @@
+<div class="container-fluid mb-2">
+  <div class="modal fade" id="filePickerModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="filePickerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="filePickerModalLabel">Source Document</h5>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title d-flex flex-row justify-content-between">
+                <h5 class="text-primary">Upload File</h5>
+                <button class="btn btn-primary" (click)="uploadFiles()" [disabled]="!isFileSelected">
+                  <fa-icon icon="upload"></fa-icon>
+                  <span class="ml-1">Upload</span>
+                  <span class="ml-1 spinner-border spinner-border-sm align-middle" [class.d-none]="!isUploadingFiles"
+                    role="status" aria-hidden="true"></span>
+                </button>
+              </div>
+
+              <div class="nav nav-pills justify-content-center">
+                <li class="nav-item nav-pills">
+                  <nav>
+                    <div class="nav nav-pills justify-content-center" id="nav-tab" role="tablist">
+                      <a class="nav-item nav-link active" id="nav-availabletag-tab" data-toggle="tab"
+                        href="#nav-availabletag" role="tab" aria-controls="nav-availabletag" aria-selected="true"
+                        [ngClass]="{'active': (fileUploaderActiveTabIndex == 0)}"
+                        (click)="setFileUploaderActiveTabIndex(0)">Tags</a>
+                      <a class="nav-item nav-link" id="nav-upload-tab" data-toggle="tab" href="#nav-upload" role="tab"
+                        aria-controls="nav-upload" aria-selected="false"
+                        [ngClass]="{'active': (fileUploaderActiveTabIndex == 1)}"
+                        (click)="setFileUploaderActiveTabIndex(0)">Upload Files</a>
+
+                    </div>
+                  </nav>
+
+                </li>
+              </div>
+              <div class="col-12 tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-availabletag" role="tabpanel"
+                  aria-labelledby="nav-availabletag-tab">
+
+                  <div class="text-right">
+                    <button type="button" class="btn btn-success" (click)="createNewLine()">
+                      <fa-icon icon="plus"></fa-icon>ADD
+                    </button>
+                  </div>
+                  <br>
+                  <div >
+                    <li class="d-flex mb-2" *ngFor="let line of newLine.lineValues;let i = index">
+                      <select class="form-control mr-2 region">
+
+                        
+                        <option value="region">Region</option>
+                        <option value="serviceLine">Service Line</option>
+                      </select>
+
+            
+                      <input class="form-control mr-2 serviceLine" id="lineName{{'lineName' + i}}" [(value)] = "line.lineName">
+                      <button type="button" class="btn btn-danger" (click)="removeNewLineIndex(i)" >
+                        <fa-icon icon="trash"></fa-icon>
+                      </button>
+                    </li>
+                  </div>
+
+                </div>
+                <div class="tab-pane fade" id="nav-upload" role="tabpanel" aria-labelledby="nav-upload-tab">
+
+                  <form #demoForm="ngForm">
+                    <file-upload [(ngModel)]="uploadedFiles" (change)="fileSelected()" [disabled]="isDisabled"
+                      [multiple]="allowMultipleFiles" name="files"></file-upload>
+                  </form>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" [disabled]="isUploadingFiles"
+            data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

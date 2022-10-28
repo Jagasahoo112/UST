@@ -1,0 +1,125 @@
+<div class="card">
+  <div class="card-header d-flex align-items-center">
+    <div class="d-flex align-items-center w-100">
+      <input type="text" class="rounded form-control" #sourceTextArea id="sourceTextArea" placeholder="Type your question" />
+      <div class="d-flex my-3 ml-2">
+
+        <select id="regionOptions" class="form-control d-none">
+          <option value="northeurope" selected="selected">North Europe</option>
+        </select>
+        <select id="voiceOptions" class="form-control" value="en-GB" hidden>
+          <option>Please update voice list first.</option>
+        </select>
+        <select id="languageTargetOptions" class="form-control d-none">
+          <option selected="selected" value="en">English</option>
+          <option value="ar">Arabic</option>
+          <option value="de">German</option>
+          <option value="es">Spanish</option>
+          <option value="fi">Finnish</option>
+          <option value="fr">French</option>
+          <option value="hi">Hindi</option>
+          <option value="it">Italian</option>
+          <option value="ja">Japanese</option>
+          <option value="ko">Korean</option>
+          <option value="pl">Polish</option>
+          <option value="pt">Portuguese</option>
+          <option value="ru">Russian</option>
+          <option value="sv">Swedish</option>
+          <option value="zh-Hans">Chinese</option>
+        </select>
+
+        <select id="languageSourceOptions" class="form-control d-none">
+          <option selected="selected" value="en-US">English - US</option>
+          <option value="ar-EG">Arabic - EG</option>
+          <option value="de-DE">German - DE</option>
+          <option value="es-ES">Spanish - ES</option>
+          <option value="fi-FI">Finnish - FI</option>
+          <option value="fr-FR">French - FR</option>
+          <option value="hi-IN">Hindi - IN</option>
+          <option value="it-IT">Italian - IT</option>
+          <option value="ja-JP">Japanese - JP</option>
+          <option value="ko-KR">Korean - KR</option>
+          <option value="pl-PL">Polish - PL</option>
+          <option value="pt-BR">Portuguese - BR</option>
+          <option value="ru-RU">Russian - RU</option>
+          <option value="sv-SE">Swedish - SE</option>
+          <option value="zh-Hans">Chinese - Simplified</option>
+        </select>
+        <input id="subscriptionKey" type="hidden" placeholder="YourSubscriptionKey"
+          value="910098f99d48449daf094d814813de9e" />
+          <input title="Speaking speed" type="range" id="speed" name="speed" min="-100" max="200" value="0"
+                    class=" form-control-range d-none" data-bi-id="demo-rate-slider" aria-label="Speaking speed">
+                    <div class="col d-none">
+                      <div class="custom-control custom-checkbox mt-2">
+                        <input type="checkbox" checked class="custom-control-input" id="isSSML" name="isSSML" value="ssml" />
+                        <label class="custom-control-label" for="customCheck1">Is SSML</label>
+                      </div>
+                    </div>
+    
+        <button class="btn btn-success btn-sm rounded mr-2" id="startRecognizeOnceAsyncButton">
+          <fa-icon icon="microphone" size="lg"></fa-icon>
+        </button>
+        <button class="btn btn-success btn-sm rounded mr-2" id="stopRecognizeOnceAsyncButton">
+          <fa-icon icon="stop" size="lg"></fa-icon>
+        </button>
+        
+        <!-- <button type="button" class="btn btn-success btn-sm rounded mr-2" (click)="searchAnswer()"
+          [disabled]="isProcessing || !fileUploadStatus"> -->
+          <button type="button" class="btn btn-success btn-sm rounded mr-2" [disabled]="isProcessing || !fileUploadStatus" (click)="searchAnswer()"
+          >
+          
+          <span class="align-middle d-flex ">
+            <span class="spinner-border spinner-border-sm mr-2" [class.d-none]="!isProcessing" role="status"
+            aria-hidden="true"></span>
+            <fa-icon icon="question"></fa-icon> 
+            <span class="ml-1">ASK</span> 
+          </span>
+        </button>
+        <button type="button" class="btn btn-danger d-flex rounded btn-sm"  (click)="reset()">
+          <fa-icon icon="trash"></fa-icon> <span class="ml-1">CLEAR</span> 
+        </button>
+       
+      </div>
+    </div>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li *ngIf="answerItems == null || answerItems.length == 0" class="list-group-item">
+      <div>
+        <fa-icon icon="info-circle"></fa-icon> No data found! <br />
+      </div>
+    </li>
+    <li *ngFor="let answerItem of answerItemsViewModel; let i = index; " class="list-group-item">
+      <div class="flex-row">
+        <div class="d-flex flex-column ">
+          <div class="row ">
+            <div class="col ">
+              <span class="mr-1 text-success" *ngIf="answerItem.score > 0">
+                <fa-icon icon="check-circle" size="lg"></fa-icon>
+              </span>
+              <span class="mr-1 text-primary" *ngIf="answerItem.score == 0">
+                <fa-icon icon="exclamation-circle" size="lg"></fa-icon>
+              </span>
+              <span id="synthesisText" class="label label-primary font-weight-bolder">
+                {{ answerItem.answer }}</span>
+            </div>
+            <div class="col justify-content-end text-right " *ngIf="answerItem.score > 0">
+              <button class="btn btn-sm btn-primary rounded mr-2" (click)="highlightAndScrollIntoView(answerItem)">
+                <fa-icon icon="external-link-alt"></fa-icon> Document Context
+              </button>
+              <button id="startSynthesisAsyncButton{{i}}" (click)="start(answerItem.answer)"  class="btn btn-sm mr-1 btn-success">
+                <fa-icon icon="play"></fa-icon>
+              </button>
+              
+              <button id="stopButton{{i}}" (click)="stopAudioPlay()" class="btn btn-sm btn-danger">
+                <fa-icon icon="stop"></fa-icon>
+              </button>
+           
+            </div>
+          </div>
+
+          <div class="mt-2 text-wrap" [innerHtml]="answerItem.context" id="contextText"></div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

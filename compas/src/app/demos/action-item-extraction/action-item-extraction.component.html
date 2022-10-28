@@ -1,0 +1,153 @@
+<div class="container-fluid p-0">
+  <main-navbar></main-navbar>
+
+  <div class="p-3">
+
+    <div class="h4 text-center mb-3">SPEECH-DRIVEN ACTION ITEM EXTRACTION</div>
+
+    <div class="row">
+
+      <!-- <div class="col-lg mt-3">
+        <input class="col-lg form-control" (input)="textCheck()" #sourceTextArea placeholder="AccessToken" />
+      </div>
+      <div class="col-lg mt-3">
+        <input class="col-lg form-control" (input)="textCheck()" #sourceTextAreaPlanId placeholder="Plan id" />
+      </div> -->
+
+      <div class="col-lg-3 ml-auto 9 justify-content-end d-flex flex-row">
+
+        <button class="btn btn-lg btn-success mr-2" data-toggle="modal" data-target="#filePickerModal">
+          <fa-icon icon="file-upload" size="lg"></fa-icon> Upload
+        </button>
+        <!-- <button type="button" class="btn  btn-primary mr-2 rounded "
+          [disabled]="isProcessing || !fileUploadStatus || !tokenStatus" (click)="getExtractedActionItems()">
+          <span class="spinner-border spinner-border-sm mr-1" [class.d-none]="!isProcessing" role="status"
+            aria-hidden="true"></span>
+          <fa-icon icon="folder-open"></fa-icon> EXTRACT
+        </button> -->
+        <button type="button" (click)="reset()" class="btn btn-lg btn-danger rounded ">
+          <fa-icon icon="trash"></fa-icon> RESET
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row justify-content-end px-3 ">
+  </div>
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col">
+        <action-item-extraction-content-display #actionItemExtractionContentDisplay>
+        </action-item-extraction-content-display>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h2>&nbsp;</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg">
+        <action-item-extraction-list-items #actionItemExtractionListItems>
+        </action-item-extraction-list-items>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- No Data Modal -->
+<div class="modal fade" id="assigneeNotFoundModal" tabindex="-1" role="dialog" aria-labelledby="filePickerModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filePickerModalLabel">Failed</h5>
+      </div>
+      <div class="modal-body">
+
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="card-title d-flex flex-row ">
+              <h5><span class="mr-1 text-danger align-middle">
+                  <fa-icon icon="times-circle" size="2x"></fa-icon>
+                </span>
+                <span class="align-middle">{{modalData}}</span>
+              </h5>
+
+            </div>
+            <button type="button" class="btn btn-secondary text-center" data-dismiss="modal">OK</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="filePickerModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="filePickerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filePickerModalLabel">Source Document</h5>
+      </div>
+      <div class="modal-body">
+
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title d-flex flex-row justify-content-between">
+              <h5 class="text-primary">Upload File</h5>
+              <button class="btn btn-primary" (click)="uploadFile()" [disabled]="!isFileSelected">
+                <fa-icon icon="upload"></fa-icon>
+                <span class="ml-1">Upload</span>
+                <span class="ml-1 spinner-border spinner-border-sm align-middle" [class.d-none]="!isUploadingFile"
+                  role="status" aria-hidden="true"></span>
+              </button>
+            </div>
+            <file-uploader #fileUploader [allowMultipleFiles]="false"></file-uploader>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="clearSelectedFiles()" [disabled]="isUploadingFile"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Content Extraction Failed Modal -->
+<div class="modal fade" id="fileExtractFailedModal" tabindex="-1" role="dialog" aria-labelledby="filePickerModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filePickerModalLabel">Failed</h5>
+      </div>
+      <div class="modal-body">
+
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="card-title d-flex flex-row ">
+              <h5><span class="mr-1 text-danger align-middle">
+                  <fa-icon icon="times-circle" size="2x"></fa-icon>
+                </span>
+                <span class="align-middle">Error processing file. Please try later.</span>
+              </h5>
+
+            </div>
+            <button type="button" class="btn btn-secondary text-center" data-dismiss="modal">OK</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+      

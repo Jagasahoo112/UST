@@ -1,0 +1,10 @@
+<div *ngIf="exist">
+    <ul  class="list-group">        
+        <li class="list-group-item" *ngFor="let inc of Querytext;" (click)="selectitem(inc);">
+            <span >
+                <fa-icon icon="search" class="searchIcon">
+
+            </fa-icon></span>{{originalText}}<b>{{inc}}</b></li> 
+    </ul>
+  </div>
+ 

@@ -1,0 +1,54 @@
+<div class="card">
+    <div class="card-header d-flex flex-row">
+        <fa-icon size="lg" icon="file-alt"></fa-icon>
+        <div class="h5 text-dark ml-2">Meeting Transcript</div>
+        <div class="ml-auto"><button class="btn btn-success" data-toggle="modal" data-target="#filePickerModal"><fa-icon icon="file-upload" size="lg"></fa-icon> Upload</button></div>
+    </div>
+
+
+    
+    <div class="card-body">
+        <!-- <div class="richTextEditor" id="sourceTextEditor" #sourceTextEditor placeholder="Paste meeting transcript here">
+            
+        </div> -->
+
+        <textarea #sourceTextEditor class="form-control" id="sourceTextEditor" [(ngModel)]="conversationText" rows="7" ></textarea>
+    </div>
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="filePickerModal" tabindex="-1" role="dialog" aria-labelledby="filePickerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="filePickerModalLabel">Upload Transcript</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <div  class="card">
+            <div class="card-body">
+              <div class="card-title d-flex flex-row justify-content-between">
+                <h5 class="text-primary">Upload Files</h5>
+                <button class="btn btn-primary" (click)="uploadFile()">
+                  <fa-icon icon="upload"></fa-icon>
+                  <span class="ml-1">Upload</span>
+                  <span class="ml-1 spinner-border spinner-border-sm align-middle" [class.d-none]="!isUploadingFile"  role="status" aria-hidden="true"></span>
+                </button>
+              </div>
+                <file-uploader #fileUploader [allowMultipleFiles]="false" ></file-uploader>
+            </div>
+          </div>
+  
+  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal"  >Done</button>
+        </div>
+      </div>
+    </div>
+  </div>

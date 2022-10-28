@@ -1,0 +1,84 @@
+<div class="container vh-100 d-flex flex-row justify-content-center">
+
+
+
+  <div class="my-auto d-flex flex-row flex-fill border rounded">
+
+
+    <div id="login-left" class="flex-fill d-none d-lg-flex flex-column ">
+      <div class="display-3 text-secondary text-right p-2">Compass</div>
+      <div class="h4 text-secondary text-right p-2">GDS Automation - Solutions Lab</div>
+    </div>
+
+    <div id="login-right" class="flex-fill">
+
+      <div class="container">
+
+        <div class="d-flex flex-column align-items-center">
+          <div><img src="assets/images/ey-logo-full.png" style="width:100px" /></div>
+
+          <div class="h1 text-dark"><fa-icon icon="compass" spin="true"></fa-icon> Compass</div>
+          <div class="h2 text-secondary">Sign In</div>
+          <div class="text-muted">Sign in to evaluate our AI Solutions</div>
+
+          <div class="m-5">
+            <form (ngSubmit)="login()" #signInForm="ngForm">
+
+              <div class="form-group" >
+                <div class="alert alert-danger" *ngIf="isAuthError()">
+                  {{authError}}
+                </div>
+              </div>
+
+              <div class="form-group">
+
+                <label for="email">Email address</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <fa-icon icon="envelope" class="input-group-text" id="basic-addon1"></fa-icon>
+                  </div>
+                  <input type="email" class="form-control form-control-lg" id="email" aria-describedby="emailHelp"
+                    placeholder="Enter email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email"
+                    #emailModel="ngModel" [(ngModel)]="email">
+
+                </div>
+                <div class="alert alert-danger" *ngIf="emailModel.touched && !emailModel.valid">
+                  <div *ngIf="emailModel?.errors?.required || emailModel?.errors?.pattern">Please enter a valid email
+                  </div>
+                </div>
+                <small id="emailHelp" class="form-text text-muted">Use your EY email address to login.</small>
+              </div>
+
+
+
+              <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <fa-icon icon="lock" class="input-group-text" id="basic-addon1"></fa-icon>
+                  </div>
+                  <input type="password" class="form-control form-control-lg" id="password" placeholder="Password"
+                    name="password" required #passwordModel="ngModel" [(ngModel)]="password">
+                </div>
+                <div class="alert alert-danger" *ngIf="passwordModel.touched && !passwordModel.valid">
+                  <div *ngIf="passwordModel?.errors?.required">Please enter your password</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-lg btn-primary btn-block"
+                  [disabled]="!signInForm.valid">Submit</button>
+              </div>
+            </form>
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

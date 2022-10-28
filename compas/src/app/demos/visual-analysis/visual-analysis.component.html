@@ -1,0 +1,29 @@
+<div class="container-fluid p-0">
+  <main-navbar></main-navbar>
+
+  <div class="p-3">
+
+    <div class="h2 text-center mb-3">Visual Analysis</div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-2">
+          <image-picker #imagePicker (imageSelected)="handleImageSelected($event)"></image-picker>
+        </div>
+
+
+        <div class="col-lg-7">
+          <div class="border p-3">
+            <annotation-canvas #annotationCanvas></annotation-canvas>
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <visual-analysis-list #visualAnalysisList (metricSelected)="handleMetricSelected($event)"
+            (metricDeselected)="handleMetricDeselected($event)"></visual-analysis-list>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

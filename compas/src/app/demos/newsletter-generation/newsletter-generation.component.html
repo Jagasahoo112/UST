@@ -1,0 +1,59 @@
+<div class="container-fluid p-0">
+    <main-navbar></main-navbar>
+
+    <div class="p-3">
+
+        <div class="h2 text-center mb-3">Intelligent Newsletter Generation</div>
+
+        <div class="d-flex justify-content-end p-3">
+            <button class="btn btn-primary btn-lg mr-2" [disabled]="!canStepBack()"  (click)="handleBackClick()"> <fa-icon icon="arrow-circle-left" ></fa-icon> Back</button>
+            <button class="btn btn-primary btn-lg" [disabled]="!canStepNext()"  (click)="handleNextClick()"> <fa-icon icon="arrow-circle-right" ></fa-icon> Next</button>
+        </div>
+        <div id="stepper1" class="bs-stepper">
+            <div class="bs-stepper-header">
+              <div class="step" data-target="#test-l-1">
+                <button class="step-trigger">
+                  <span class="bs-stepper-circle">1</span>
+                  <span class="bs-stepper-label">Select Data Sources</span>
+                </button>
+              </div>
+              <div class="line"></div>
+              <div class="step" data-target="#test-l-2">
+                <button class="step-trigger">
+                  <span class="bs-stepper-circle">2</span>
+                  <span class="bs-stepper-label">Select Template</span>
+                </button>
+              </div>
+              <div class="line"></div>
+              <div class="step" data-target="#test-l-3">
+                <button class="step-trigger">
+                  <span class="bs-stepper-circle">3</span>
+                  <span class="bs-stepper-label">Preview & Download</span>
+                </button>
+              </div>
+            </div>
+            <div class="bs-stepper-content">
+              
+                <div id="test-l-1" class="content">
+                  <newsletter-data-source-listing #newsletterDataSourceListing></newsletter-data-source-listing>
+                </div>
+
+
+
+                <div id="test-l-2" class="content">
+                  <newsletter-template-listing #newsletterTemplateListing></newsletter-template-listing>
+                </div>
+
+                
+                <div id="test-l-3" class="content text-center">
+                    <newsletter-preview #newsletterPreview (downloadPdfSelected)="downloadPdf()" (downloadWordSelected)="downloadWord()"></newsletter-preview>
+                </div>
+           
+            </div>
+        </div>
+
+
+
+        
+    </div>
+</div>

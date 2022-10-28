@@ -1,0 +1,18 @@
+<div class="container-fluid p-0">
+    <main-navbar></main-navbar>
+    <div class="h2 text-center my-3">Resume Intelligence</div>
+    <div class="justify-content-center">
+      
+          <div class="nav nav-pills justify-content-center" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-repository-tab" data-toggle="tab" href="#nav-repository" role="tab" aria-controls="nav-repository" aria-selected="true" (click)="setRepositoryActiveTabIndex(1)">Repository</a>
+            <a class="nav-item nav-link" id="nav-search-tab" data-toggle="tab" href="#nav-search"  role="tab" aria-controls="nav-search" aria-selected="false" (click)="setRepositoryActiveTabIndex(0)">Search</a>
+          </div>
+        
+    </div>
+    <div class="col-12 tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-repository" role="tabpanel" aria-labelledby="nav-repository-tab"><app-resume-repository></app-resume-repository></div>
+      <div class="tab-pane fade" id="nav-search" role="tabpanel" aria-labelledby="nav-search-tab"><app-resume-search></app-resume-search></div>
+    </div>
+  </div>
+    
+

@@ -1,0 +1,130 @@
+<div class="card">
+    <div class="card-header bg-warning">
+
+        <div class="d-flex flex-row">
+            <!-- <a id="selectAspectLink" class="text-dark d-flex flex-row" style="cursor: pointer;">
+                <div class="h5 text-center align-middle mr-2">{{selectedAspect != null ? selectedAspect.aspectCategory : "Loading..."}} </div>
+                <fa-icon icon="chevron-down"></fa-icon> 
+            </a> -->
+            <button id="selectAspectLink" class="btn btn-link text-dark d-flex flex-row" style="cursor: pointer;">
+                <div class="h6 text-center align-middle mr-2">{{selectedAspect != null ? selectedAspect.aspectCategory : "Loading..."}} </div>
+                <fa-icon icon="chevron-down"></fa-icon> 
+            </button>
+            <button class="btn btn-sm btn-success ml-auto" data-toggle="modal" data-target="#exampleModal" (click)="createNewAspect()" ><fa-icon icon="plus"></fa-icon></button>
+        </div>
+
+    
+        <div #aspectCategorySelector   class="list-group" id="aspectOptions">
+            <a *ngFor="let aspect of supportedAspects" (click)="onAspectCategorySelected(aspect)" style="cursor: pointer;" class="list-group-item list-group-item-action">{{aspect.aspectCategory}}</a>
+        </div>
+    </div>
+
+    <ul class="list-group list-group-flush">
+
+        <div class="list-group-item d-flex flex-column align-items-center" *ngIf="!isProcessing && viewModel == null" >
+            <img src="assets/images/no-results.png" class="img-fluid" /> 
+            <div class="d-flex flex-row align-items-center">
+              <div class="text-info"><fa-icon icon="info-circle" class="mr-2"></fa-icon></div> 
+              <div class="text-info">Analyse your text to see results here!</div>
+            </div> 
+          </div>
+    
+          <div class="list-group-item d-flex flex-column align-items-center" *ngIf="isProcessing" >
+            <img src="assets/images/analyse-image.gif" class="img-fluid" /> 
+            <div class="d-flex flex-row align-items-center">
+              <div class="text-info"><fa-icon icon="info-circle" class="mr-2"></fa-icon></div> 
+              <div class="text-info">We're analysing your text....Hold on!</div>
+            </div> 
+          </div>
+
+        <li *ngFor="let sentiment of viewModel"  class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3 m-0 p-0 align-self-center">
+                        <div class="text-secondary">{{sentiment.sentimentName}}</div>
+                    </div>
+
+                    <div class="col-9 m-0 p-0">
+                        <div class="flex-grow-1 p-2 d-flex flex-column" >
+                            <div class="d-flex flex-row">
+                                <div class="progress flex-grow-1" style="height: 20px;">
+                                    <div class="progress-bar" [ngClass]="sentiment.cssClass" role="progressbar" style="width: {{sentiment.sentimentValue}}%;" aria-valuenow="{{sentiment.sentimentValue}}" aria-valuemin="0" aria-valuemax="100">{{sentiment.sentimentValue}}%</div>
+                                </div>
+        
+                                <small class="text-muted ml-2">Original</small>
+                            </div>
+                            
+                            <div class="d-flex flex-row mt-2">
+                                <div class="progress flex-grow-1" style="height: 20px;">
+                                    <div class="progress-bar" [ngClass]="sentiment.cssClass" role="progressbar" style="width: {{sentiment.sentimentOldValue}}%;" aria-valuenow="{{sentiment.sentimentOldValue}}" aria-valuemin="0" aria-valuemax="100">{{sentiment.sentimentOldValue}}%</div>
+                                </div>
+        
+                                <small class="text-muted ml-2">Current</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" data-backdrop="static" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Analysis Aspect</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                  <label for="aspectCategory">Aspect Category</label>
+                  <input type="text" class="form-control" [value]="newAspect.aspectCategory" (input)="newAspect.aspectCategory = $event.target.value" id="aspectCategory" aria-describedby="emailHelp" placeholder="Describe this aspect group">
+                  
+                </div>
+                
+                <div class="d-flex flex-row mb-2">
+                    <div>Aspects</div>
+                    <button class="btn btn-sm btn-success ml-auto" (click)="createNewAspectValue()" ><fa-icon icon="plus"></fa-icon></button>
+                </div>
+                
+                <ul class="list-group">
+                    <li *ngFor="let aspect of newAspect.aspectValues; let i = index" class="list-group-item d-flex flex-row justify-content-between">
+                        <input type="text" class="form-control" id="aspectName{{'aspectName' + i}}" [value]="aspect.aspectName" (input)="aspect.aspectName = $event.target.value" aria-describedby="aspectHelp" placeholder="Aspect Keyword" />
+                        
+                        <div class="d-flex flex-row ml-3">
+                          <div [(colorPicker)]="aspect.aspectColor" [cpOutputFormat]="'rgba'" [cpPresetColors]="['red', 'green', 'yellow', 'blue']" [style.background]="aspect.aspectColor" style="width:40px; cursor: pointer;" class="border rounded border-dark mr-3"></div>
+
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-primary" [ngClass]="{'active': aspect.suggestionType == 'none'}">
+                                  <input type="radio" name="'aspectSuggestionNone-'+i" autocomplete="off" (click)="aspect.suggestionType = 'none'" > <fa-icon icon="ban"></fa-icon>
+                                </label>
+                                <label class="btn btn-primary" [ngClass]="{'active': aspect.suggestionType == 'increase'}">
+                                  <input type="radio" name="'aspectSuggestionIncrease-'+i" autocomplete="off" (click)="aspect.suggestionType = 'increase'"> <fa-icon icon="arrow-up"></fa-icon>
+                                </label>
+                                <label class="btn btn-primary" [ngClass]="{'active': aspect.suggestionType == 'decrease'}">
+                                  <input type="radio" name="'aspectSuggestionDecrease-'+i" autocomplete="off" (click)="aspect.suggestionType = 'decrease'"> <fa-icon icon="arrow-down"></fa-icon>
+                                </label>
+                              </div>
+
+                              <button class="btn btn-danger ml-2"  (click)="removeNewAspectIndex(i)" [disabled]="newAspect.aspectValues.length == 1" ><fa-icon icon="times"></fa-icon></button>
+                        </div>
+                    </li>
+                    
+                  </ul>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addNewAspect()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>

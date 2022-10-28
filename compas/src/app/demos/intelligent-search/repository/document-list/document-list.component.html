@@ -1,0 +1,41 @@
+<div class="container-fluid mb-2">
+  <div class="row">
+    <div class="col-md-4">
+      <form class="d-flex flex-row-reverse mb-2">
+        <button class="btn btn-warning" data-toggle="modal" data-target="#filePickerModal">
+          <fa-icon icon="upload"></fa-icon> UPLOAD FILES
+        </button>
+      </form>
+      <app-file-uploader></app-file-uploader>
+      <app-repository-search #repositorySearchComponent></app-repository-search>
+      <div *ngIf="!isInitLoad">
+        <div class="text-center text-muted">Found {{ sidePanelContent.length }} results</div>
+
+        <ul class="list-group" id="list-tab" role="tablist">
+          <a *ngFor="let item of sidePanelContent ; let i=index" id="files{{i}}"
+            class="list-group-item list-group-item-action nav-link" role="tab">
+            <div class="d-flex">
+              <fa-icon class="mr-2" icon="file-pdf" size="lg"></fa-icon>
+              <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"
+                (click)="pageContentDisplay(item,fileContent,i)">{{item.fileName}}</div>
+              <fa-icon class="ml-auto" icon="chevron-right" (click)="pageContentDisplay(item,fileContent,i)"></fa-icon>
+            </div>
+          </a>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="d-flex flex-column align-items-center" *ngIf="isContentLoaded">
+        <img src="assets/images/no-results.png" class="img-fluid" />
+        <div class="d-flex flex-row justify-content-center">
+          <div class="text-info">
+            <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+          </div>
+          <div class="text-info">Search And Select A File To View Content</div>
+        </div>
+      </div>
+      <app-document-view-file *ngIf="!isInitLoad" #documentViewFileComponent></app-document-view-file>
+    </div>
+  </div>
+</div>

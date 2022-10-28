@@ -1,0 +1,55 @@
+<div class="container-fluid p-0">
+    <main-navbar></main-navbar>
+
+    <div class="p-3">
+
+        <div class="h4 text-center mb-3">INTELLIGENT QUESTION ANSWERING</div>
+        <div class="d-flex flex-row justify-content-end px-3">
+            <!-- <button type="button" class="btn  btn-primary mr-2 rounded " [disabled]="isProcessing"  (click)="getUploadedFileContent()">
+           <span class="spinner-border spinner-border-sm mr-1" [class.d-none]="!isProcessing" role="status" 
+             aria-hidden="true"></span>
+            <fa-icon icon="folder-open"></fa-icon> EXTRACT</button> -->
+
+            <div class="d-flex mr-2">
+                <select class="form-control" id="languageId" (change)="enableUploadButton()">
+                  <option value="0">Select Language</option>
+                  <option value="1">English</option>
+                  <option value="2">Multi-Lingual</option>
+                  
+                </select>
+              </div>
+
+            <button class="btn btn-success mr-2 rounded" [disabled] ="!languageSelectedStatus" data-toggle="modal" data-target="#filePickerModal">
+                <fa-icon icon="file-upload" ></fa-icon> UPLOAD
+              </button>
+         <button type="button" class="btn  btn-danger rounded " (click)="reset()"><fa-icon icon="trash"></fa-icon> RESET</button>
+       </div>
+        <div class="d-flex flex-row justify-content-end px-3 mb-3">
+        </div>
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col">
+                    <question-answering-content-display #questionAnsweringContentDisplayComponent>
+                    </question-answering-content-display>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <h2>&nbsp;</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg">
+                    <question-answering-answer-details #questionAnsweringAnswerDetailsComponent>
+                    </question-answering-answer-details>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+      

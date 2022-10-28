@@ -1,0 +1,18 @@
+<div *ngIf="processingFlag">  
+   
+    <div *ngIf="pdfType">
+        <pdf-viewer [src]="pdfurl" [render-text]="true" style="display: block;" >
+        </pdf-viewer>
+    </div>
+  <div *ngIf="!pdfType">
+    <!-- <div  class="border border-dark ng-star-inserted text-center bg-light bg-gradient"
+    [innerHtml]="pageFileContent"> -->
+    <ngx-doc-viewer id="docview" [url]="docvier" class="ngx-doc-viewer-table" viewer="mammoth"  style="width:100%;height:93vh;" [searchText]="searchdoctext" >
+    <div>Loading</div>
+    </ngx-doc-viewer>
+     
+
+       </div> 
+  </div>
+  
+    

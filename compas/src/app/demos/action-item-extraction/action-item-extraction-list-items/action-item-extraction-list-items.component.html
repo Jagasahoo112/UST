@@ -1,0 +1,171 @@
+<div class="card">
+
+
+  <form (ngSubmit)="updatePlanner()" #itemValidationForm="ngForm" appFormValidator>
+  <div class="card-header d-flex flex-row">
+    <fa-icon size="lg" icon="clipboard-list"></fa-icon>
+    <div class="h5 text-dark ml-2 mr-2">Action Items</div>
+   
+    
+    <div class="collapse  col" id="collapseFields">
+      <div class="d-flex flex-row">
+        <input class="col-lg form-control" (input)="textCheck()" #sourceTextArea placeholder="AccessToken" />
+     
+        <input class="col-lg form-control ml-2" (input)="textCheck()" #sourceTextAreaPlanId placeholder="Plan id" />
+      </div>
+    </div>
+    <button class="btn ml-auto btn-sm btn-secondary mr-2" type="button" data-toggle="collapse" data-target="#collapseFields" aria-expanded="false" aria-controls="collapseFields">
+      <fa-icon icon="shield-alt"></fa-icon>
+    </button>
+    
+    <button type="button" class="btn   btn-primary rounded "
+          [disabled]="isProcessing || !fileUploadStatus || !tokenStatus" (click)="getExtractedActionItems()">
+          <span class="spinner-border spinner-border-sm mr-1" [class.d-none]="!isProcessing" role="status"
+            aria-hidden="true"></span>
+          <fa-icon icon="folder-open"></fa-icon> EXTRACT
+        </button>
+    <div class="ml-2" *ngIf="actionItemsViewModel.length > 0">
+      <button type="submit" class="btn  btn-primary mr-2 rounded " [disabled]="!itemValidationForm.valid">
+        <span class="spinner-border spinner-border-sm mr-1" [class.d-none]="!isSavingTask"
+          aria-hidden="true"></span>
+        <fa-icon icon="save"></fa-icon> SAVE
+      </button>
+  </div>
+
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li *ngIf="actionItems == null || actionItems.length == 0" class="list-group-item">
+      <div>
+
+        <fa-icon icon="info-circle"></fa-icon> No data found! <br />
+      </div>
+    </li>
+
+
+    
+      <input type="hidden" value="{{actionItemsViewModel.length}}" id="actionItemLength" />
+      <li *ngFor="let actionItem of actionItemsViewModel; let i = index;" class="list-group-item">
+        <div class="d-flex flex-row align-items-center">
+          <div class="d-flex flex-column flex-fill">
+
+            <div class="card bg-light">
+              <div class="card-body">
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend ">
+                    <span class="input-group-text text-secondary " id="inputGroup-sizing-default">
+                      <fa-icon icon="user-tie" size="lg"></fa-icon>
+                    </span>
+                  </div>
+                  <select id="assignee{{i}}" class="assignee form-control" (change)="showOtherAssigneeSection(i)">
+                    <option *ngFor="let assignee of actionItem.assigneeUserList" value="{{assignee.key}}">
+                      {{assignee.value}}</option>
+
+                  </select>
+                  <input type="hidden" class="assigneeName" value="{{i}}" />
+                  <input type="hidden" [(ngModel)]="actionItem.personalId" name="personalId{{i}}"
+                    id="otherAssigneePersonalId{{i}}" />
+                  <input type="text" [ngClass]="{'d-none' : otherEmailField[i], 'is-valid' : emailValidated[i]}" [(ngModel)]="actionItem.otherEmail" name="otherEmail{{i}}"
+                    class="form-control ml-2" id="otherAssigneeEmail{{i}}" placeholder="Enter assignee email"
+                    aria-label="Enter assignee email" aria-describedby="button-addon2" />
+                 
+                    <!-- <input type="text" class="form-control" placeholder="Other assignee email" aria-label="Other assignee email" aria-describedby="button-addon2"> -->
+                  <div [ngClass]="{'d-none' : otherEmailField[i]}" class="input-group-append " id="searchAssigneeBtn{{i}}">
+                    <button (click)="getAssigneeDetails(i,itemValidationForm)" [disabled]="getData[i]" class="btn btn-success"
+                      type="button">
+                      <span class="spinner-border spinner-border-sm align-middle ml-1" [class.d-none]="!getData[i]"
+                        role="status" aria-hidden="true"></span>
+                      <fa-icon icon="search" size="lg"></fa-icon>
+                    </button>
+
+
+                  </div>
+                </div>
+                <div class="alert alert-danger"
+                  *ngIf="itemValidationForm.errors?.invalidEmailAddress[i] && (itemValidationForm.touched || itemValidationForm.dirty)">
+                  <div>Invalid email address
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text text-secondary" id="inputGroup-sizing-default">
+                      <fa-icon icon="building" size="lg"></fa-icon>
+                    </span>
+                  </div>
+                  <input type="text"  class="form-control  company" [(ngModel)]="actionItem.company" name="company{{i}}">
+                </div>
+
+                <div class="input-group mb-3 d-flex w-100">
+
+                  <div class="input-group-prepend">
+                    <span class="input-group-text text-secondary">
+                      <fa-icon icon="clock" size="lg"></fa-icon>
+                    </span>
+                  </div>
+                  <div class="flex-grow-1">
+                    <input type="text" id="{{'deadlineText'+i}}" class="form-control deadline" #deadlineModel="ngModel"
+                      [(ngModel)]="actionItem.deadline" name="deadline{{i}}">
+                  </div>
+                  <div>
+                    <input type="date" id="{{'deadlineDte'+i}}" class="form-control deadlineDate"
+                      #deadlineDateModel="ngModel" [(ngModel)]="actionItem.deadlineDate" name="deadlineDate{{i}}" />
+                  </div>
+                </div>
+                <div class="alert alert-danger"
+                  *ngIf="itemValidationForm.errors?.deadlineValidityList[i] && (itemValidationForm.touched || itemValidationForm.dirty)">
+                  <div>Please select deadline
+                  </div>
+                </div>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text text-secondary">
+                      <fa-icon icon="clipboard-check" size="lg"></fa-icon>
+                    </span>
+                  </div>
+                  <input type="text" placeholder="Enter task" required class="form-control task" #taskModel="ngModel"
+                    [(ngModel)]="actionItem.task" name="task{{i}}">
+
+                </div>
+                <div class=" alert alert-danger" *ngIf="taskModel.touched && !taskModel.valid">
+                  <div *ngIf="taskModel?.errors?.required || taskModel?.errors?.pattern">Please enter task
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+  </ul>
+</form>
+</div>
+
+<!-- No Data Modal -->
+<div class="modal fade" id="dataNotFoundModal" tabindex="-1" role="dialog" aria-labelledby="filePickerModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filePickerModalLabel">{{modalHeading}}</h5>
+      </div>
+      <div class="modal-body">
+
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="card-title d-flex flex-row ">
+              <h5><span class="mr-2 {{modalClass}} align-middle">
+                  <fa-icon icon="{{modalIcon}}" size="2x"></fa-icon>
+                </span>
+                <span class="align-middle">{{modalData}}</span>
+              </h5>
+
+            </div>
+            <button type="button" class="btn btn-secondary text-center" data-dismiss="modal">OK</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

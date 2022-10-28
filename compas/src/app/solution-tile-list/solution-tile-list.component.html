@@ -1,0 +1,64 @@
+<div class="display-4 d-none d-md-block ">AI/ML Solution Repository</div>
+
+<div class="mt-2">
+  <ul class="nav nav-tabs  flex-column flex-sm-row">
+    <li class="nav-item" *ngFor="let category of solutionCategories">
+      <!-- <a class="nav-link" [class.active]="currentTab == category"  (click)="currentTab = category">{{category}}</a> -->
+      <a class="nav-link" [class.active]="currentTab == category"  (click)="filterApplications(category)">{{category}}</a>
+    </li>
+    
+
+  </ul>
+</div>
+    
+
+  <div class="row">
+    <div class="col-sm-6 col-md-4 my-3" *ngFor="let solution of solutionList">
+
+
+    <div class="card h-100" >
+      <img class="card-img-top" src="assets/images/{{solution.headerImage}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{solution.appName}}</h5>
+        <p class="card-text">{{solution.description}}</p>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex justify-content-around">
+          <button class="btn btn-success flex-fill m-1" [disabled]="!solution.isDemoAvailable" (click)="this.router.navigateByUrl(solution.demoLink)">
+            <fa-icon icon="desktop" size="lg" class="mr-1"></fa-icon>Demo
+          </button>
+          <button class="btn btn-success flex-fill m-1" [disabled]="!solution.isApiAvailable">
+            <fa-icon icon="plug" size="lg" class="mr-1"></fa-icon>API
+          </button>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    
+    </div>
+
+    <!-- Modal -->
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="disclaimerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+          <span class="mr-2 text-warning align-middle">
+            <fa-icon icon="info-circle" size="2x"></fa-icon>
+          </span>
+          Disclaimer</h5>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body">
+        
+        This platform is for testing proof of concepts in AI technologies in the area of computer vision, text analytics, NLP and so on in a development sandbox environment. Please make sure not to use any client or EY sensitive data in this platform.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

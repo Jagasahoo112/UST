@@ -1,0 +1,59 @@
+<div class="container-fluid p-0">
+  <main-navbar></main-navbar>
+
+  <div class="p-3">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <div class="h5 align-middle">Text Paraphrasing</div>
+        <div class="row">
+          <div class="form-group col-lg">
+            <select class="form-control" id="algorithmKey" (change)="enableParaphraseButton()">
+              <option value="0">Select Algorithm</option>
+              <option value="1">Synonym based NLP</option>
+              <option value="2">Bert Deep Learning(Single Mask)</option>
+              <option value="3">Bert Deep Learning(Multi Mask)</option>
+              <option value="4">Parrot Pretrained</option>
+              <option value="5">Active/Passive Deep Learning</option>
+            </select>
+          </div>
+          <div>
+            <div class="btn-group btn-group-toggle mr-3" data-toggle="buttons">
+              <label class="btn btn-sm btn-success" [ngClass]="{ active: autoreplace }">
+                <input type="radio" name="options" id="option1" autocomplete="off" [checked]="autoreplace"
+                  (change)="autoreplace = !autoreplace" />
+                Auto Replace Mode
+              </label>
+              <label class="btn btn-sm btn-success" [ngClass]="{ active: !autoreplace }">
+                <input type="radio" name="options" id="option2" autocomplete="off" [checked]="!autoreplace"
+                  (change)="autoreplace = !autoreplace" />
+                Suggestions Mode
+              </label>
+            </div>
+
+            <button type="button" class="btn btn-primary mr-2" (click)="paraphrase()"
+              [disabled]="isProcessing || paraphraseDisabled">
+              <span class="spinner-border spinner-border-sm" [class.d-none]="!isProcessing" role="status"
+                aria-hidden="true"></span>
+              Paraphrase
+            </button>
+            <button type="button" class="btn btn-danger" (click)="reset()">
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8 col-xl-12">
+            <div class="h-250">
+              <div class="m-0 p-0 mh-100" class="richTextEditor" #sourceTextEditor id="sourceTextEditor"
+                placeholder="Paste your text here to paraphrase!" spellcheck="false" (input)="enableParaphraseButton()">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

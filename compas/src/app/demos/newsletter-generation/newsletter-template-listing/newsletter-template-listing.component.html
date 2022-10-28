@@ -1,0 +1,14 @@
+<div class="list-group">
+
+    <div *ngIf="templateList==null" class="list-group-item">
+        <img src="assets/images/content-loading.gif" class="img-fluid" />
+    </div>
+
+    <a *ngFor="let template of templateList; let i= index" (click)="selectTemplate(i)" style="cursor:pointer" class="list-group-item list-group-item-action" [ngClass]="{'active': i==selectedTemplateIndex}">
+        <div class="d-flex justify-content-lg-between align-items-center">
+            <img src="{{getFullAssetUrl(template.thumbnailPath)}}" width="200" />
+            <div class="h4">{{template.templateName}}</div>
+        </div>
+    </a>
+
+</div>

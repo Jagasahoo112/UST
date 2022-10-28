@@ -1,0 +1,60 @@
+<div class="card">
+    <div class="card-header text-center">
+      <div class="h5"><fa-icon icon="clipboard" class="mr-2"></fa-icon>Results</div> 
+    </div>
+    <div class="card-body p-1">
+      <div class="d-flex flex-column align-items-center" *ngIf="analysisStatus == 'NoImageSelected'" >
+        <img src="assets/images/no-results.png" class="img-fluid" /> 
+        <div class="d-flex flex-row">
+          <div class="text-warning"><fa-icon icon="info-circle" class="mr-2"></fa-icon></div> 
+          <small class="text-primary">Select an image to see Analysis Results</small>
+        </div> 
+      </div>
+
+      <div class="d-flex flex-column align-items-center" *ngIf="analysisStatus == 'Processing'" >
+        <img src="assets/images/analyse-image.gif" class="img-fluid" /> 
+        <div class="d-flex flex-row">
+          <div class="text-info"><fa-icon icon="info-circle" class="mr-2"></fa-icon></div> 
+          <small class="text-primary">We're analysing your image....Hold on!</small>
+        </div> 
+      </div>
+      <!--ACCORDION STARTS-->
+
+      <div class="accordion" id="resultsAccordion" *ngIf="analysisStatus == 'ResultsAvailable'">
+        <div *ngFor="let objectResult of analysisResultsViewModel; let i = index"  class="card">
+          <div class="card-header" id="headingOne">
+            
+              <button class="btn text-center btn-link btn-block text-left" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + i" aria-expanded="true" aria-controls="collapseOne">
+                {{objectResult.objectId}}
+              </button>
+       
+          </div>
+      
+          <div id="collapse{{i}}" class="collapse show" aria-labelledby="headingOne" data-parent="#resultsAccordion">
+            <div class="card-body  p-1 m-0">
+
+            <div *ngIf="objectResult.metrics == null" class="d-flex flex-row">
+              <div class="text-warning"><fa-icon icon="exclamation-circle" class="mr-2"></fa-icon></div>
+              <div class="text-info">Object not found</div> 
+            </div>
+
+
+              <div *ngIf="objectResult.metrics != null" class="list-group">
+                <a href="#" (mouseenter)="showAnnotations(objectResult.objectId, metric.metricName)" (mouseleave)="hideAnnotations(objectResult.objectId, metric.metricName)" *ngFor="let metric of objectResult.metrics" class="list-group-item list-group-item-action d-flex flex-row justify-content-between align-items-center px-1">
+                  <div *ngIf="metric.isValid" class="text-success"><fa-icon icon="check-circle" class="mr-2"></fa-icon></div> 
+                  <div *ngIf="!metric.isValid" class="text-danger"><fa-icon icon="times-circle" class="mr-2"></fa-icon></div> 
+                  <div class="text-info flex-fill" [ngClass]="{'text-success': metric.isValid, 'text-danger': !metric.isValid}" >{{metric.metricName}}</div> 
+                  <small class="text-info" [ngClass]="{'text-success': metric.isValid, 'text-danger': !metric.isValid}">{{metric.currentValue}}  / {{metric.expectedValue}}</small> 
+                </a>
+
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--ACCORDION ENDS-->
+
+    </div>
+  </div>

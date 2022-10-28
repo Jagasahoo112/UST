@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <form>
+        <div class="nav-link col-12">
+            <form class="d-flex mb-3">
+                <div class="input-group">
+                    <input type="search" class="form-control" placeholder="Search" aria-label="Search" #sourceTextArea
+                        (keyup.enter)="searchQuery()" />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <fa-icon icon="search" class="searchIcon" (click)="searchQuery()"></fa-icon>
+                        </span>
+                    </div>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <fa-icon icon="microphone" class="microphoneIcon"></fa-icon>
+                        </span>
+                    </div>
+                    <app-search-query-suggestions #sourceTextAreaSuggestion></app-search-query-suggestions>
+                </div>
+            </form>
+        </div>
+    </form>
+    <div>
+        <app-search-result #intelligentSearchResult></app-search-result>
+    </div>
+</div>

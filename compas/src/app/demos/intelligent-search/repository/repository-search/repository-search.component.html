@@ -1,0 +1,40 @@
+<div class="mb-2">
+    <div class="input-group">
+
+        <input type="search" class="form-control" placeholder="Search Files" aria-label="search" id="fileKeyword">
+        <div class="input-group-prepend">
+            <button class="input-group-text">
+                <fa-icon icon="search" (click)="searchFile()"></fa-icon>
+            </button>
+        </div>
+    </div>
+        <div class="col-md-0 offset-0">
+            <div class="d-flex flex-column align-items-center" *ngIf="isProcessing">
+                <img src="assets/images/analyse-image.gif" class="img-fluid" />
+                <div class="d-flex flex-row align-items-center">
+                    <div class="text-info">
+                        <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+                    </div>
+                    <div class="text-info">Searching files...</div>
+                </div>
+            </div>
+
+            <div class="d-flex py-2 justify-content-center"
+                *ngIf="isSearchStarted && sidePanelContent.length === 0 && !isProcessing">
+
+
+                <div class="text-info">
+                    <fa-icon icon="info-circle" size="lg" class="mr-2"></fa-icon>
+                </div>
+                <div class="text-muted">No Files Found!</div>
+
+            </div>
+
+        </div>
+
+        <div class="accordian" *ngIf="!isProcessing && sidePanelContent != []" id="accordianExample">
+
+            <app-document-view *ngIf="!isProcessing" #documentViewComponent></app-document-view>
+        </div>
+    
+</div>

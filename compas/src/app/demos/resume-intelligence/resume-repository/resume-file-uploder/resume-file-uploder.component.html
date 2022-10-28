@@ -1,0 +1,46 @@
+<div class="container-fluid mb-2">
+    <div class="modal fade" id="filePickerModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+      aria-labelledby="filePickerModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="filePickerModalLabel">Source Document</h5>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title d-flex flex-row justify-content-between">
+                  <h5 class="text-primary">Upload Resume</h5>                          
+                  <button class="btn btn-primary" (click)="uploadFiles()" [disabled]="!isFileSelected">
+                    <fa-icon icon="upload"></fa-icon>
+                    <span class="ml-1">Upload</span>
+                    <span class="ml-1 spinner-border spinner-border-sm align-middle" [class.d-none]="!isUploadingFiles"
+                      role="status" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="nav nav-pills justify-content-center">
+                  <li class="nav-item nav-pills">
+                    <nav>
+                      <div class="nav nav-pills justify-content-center" id="nav-tab" role="tablist">
+                      </div>
+                    </nav>
+  
+                  </li>
+                </div>
+                    <form #demoForm="ngForm">
+                      <file-upload [(ngModel)]="uploadedFiles" (change)="fileSelected()" [disabled]="isDisabled"
+                        [multiple]="allowMultipleFiles" name="files"></file-upload>
+                    </form>
+  
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" [disabled]="isUploadingFiles"
+              data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

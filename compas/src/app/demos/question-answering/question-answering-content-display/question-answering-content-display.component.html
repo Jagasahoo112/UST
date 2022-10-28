@@ -1,0 +1,79 @@
+<div class="card">
+
+  <div class="card-header d-flex flex-row">
+    <fa-icon size="lg" icon="file-alt"></fa-icon>
+    <div class="h5 text-dark ml-2">Source Document</div>
+  </div>
+
+  <div class="card-body">
+    <div class="m-0 p-0" class="richTextEditor" #sourceTextEditor id="sourceTextEditor"
+      placeholder="Paste your text here!"></div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="filePickerModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="filePickerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filePickerModalLabel">Source Document</h5>
+      </div>
+      <div class="modal-body">
+
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title d-flex flex-row justify-content-between">
+              <h5 class="text-primary">Upload File</h5>
+              <button class="btn btn-primary" (click)="uploadFile()" [disabled]="!isFileSelected">
+                <fa-icon icon="upload"></fa-icon>
+                <span class="ml-1">Upload</span>
+                <span class="ml-1 spinner-border spinner-border-sm align-middle" [class.d-none]="!isUploadingFile"
+                  role="status" aria-hidden="true"></span>
+              </button>
+            </div>
+            <file-uploader #fileUploader [allowMultipleFiles]="false"></file-uploader>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="clearSelectedFiles()" [disabled]="isUploadingFile"
+          data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Content Extraction Failed Modal -->
+<div class="modal fade" id="fileExtractFailedModal" tabindex="-1" role="dialog" aria-labelledby="filePickerModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filePickerModalLabel">Failed</h5>
+      </div>
+      <div class="modal-body">
+
+        <div class="card">
+          <div class="card-body text-center">
+            <div class="card-title d-flex flex-row ">
+              <h5 ><span class="mr-1 text-danger align-middle">
+                  <fa-icon icon="times-circle" size="2x"></fa-icon>
+                </span>
+                <span class="align-middle">Error processing file. Please try later.</span>
+              </h5>
+
+            </div>
+            <button type="button" class="btn btn-secondary text-center" data-dismiss="modal">OK</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>

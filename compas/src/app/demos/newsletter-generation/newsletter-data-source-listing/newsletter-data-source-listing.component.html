@@ -1,0 +1,127 @@
+<div class="accordion" id="accordionExample">
+
+  <div *ngIf="sourceFiles == null" class="card">
+    <div class="card-body">
+      <div *ngIf="sourceFiles == null" class="list-group">
+        <div class="list-group-item"> <img src="assets/images/content-loading.gif" class="img-fluid" /></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+<div class="modal fade" id="filePickerModal" tabindex="-1" role="dialog" aria-labelledby="filePickerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filePickerModalLabel">Choose Files to Add</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <ul class="nav nav-tabs mb-1">
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': (filePickerActiveTabIndex == 0)}"  (click)="setFilePickerActiveTabIndex(0)">Available Files</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': (filePickerActiveTabIndex == 1)}" (click)="setFilePickerActiveTabIndex(1)">Upload New Files</a>
+          </li>
+         
+        </ul>
+
+
+        <div *ngIf="filePickerActiveTabIndex == 0" class="list-group">
+
+          <div *ngIf="sourceFiles != null && sourceFiles.length == 0" class="list-group-item d-flex flex-row align-items-center">
+            <img src="assets/images/no-files.png" class="img-fluid" />
+            <div>No files added yet!</div>
+          </div>
+
+          <a *ngFor="let file of sourceFiles; let i = index" style="cursor:pointer" (click)="toggleFileSelection(i)" class="list-group-item list-group-item-action"  >
+            <div class="d-flex flex-row">
+              <img [src]="getFullAssetUrl(file.thumbnailPath)" width="30" /> 
+              <div>{{file.fileId}}</div>
+
+              <div class="ml-auto d-flex flex-row align-middle">
+                <div *ngIf="fileIndexSelectionStatusList[i]" class="text-success mr-2"><fa-icon icon="check-circle"></fa-icon></div>
+                <button class="btn btn-sm btn-danger" (click)="deleteFile(file.fileId); $event.stopPropagation()"><fa-icon icon="trash-alt"></fa-icon></button>
+              </div>
+              
+            </div>
+          </a>
+        </div>
+
+        <div  *ngIf="filePickerActiveTabIndex == 1" class="card">
+          <div class="card-body">
+            <div class="card-title d-flex flex-row justify-content-between">
+              <h5 class="text-primary">Upload Files</h5>
+              <button class="btn btn-primary" (click)="uploadFiles()">
+                <fa-icon icon="upload"></fa-icon>
+                <span class="ml-1">Upload</span>
+                <span class="ml-1 spinner-border spinner-border-sm align-middle" [class.d-none]="!isUploadingFiles"  role="status" aria-hidden="true"></span>
+              </button>
+            </div>
+              <file-uploader #fileUploader></file-uploader>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!isAnyFileSelected()" (click)="addFilesToList()">Add to List</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <div *ngFor="let sourceFileItem of categorizedFileList | keyvalue:originalOrder; let i = index" class="card">
+    <div class="card-header" id="headingOne">
+      <div class="mb-0 d-flex justify-content-between">
+        <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse-' + i"
+          aria-expanded="true" aria-controls="{{'collapse-'+i}}">
+          <div class="h5">{{sourceFileItem.key}}</div>
+        </button>
+        <button class="btn btn-success" data-toggle="modal" data-target="#filePickerModal" [attr.data-file-category]="sourceFileItem.key">
+          <fa-icon icon="plus-circle"></fa-icon> Add File
+        </button>
+      </div>
+    </div>
+
+    <div id="{{'collapse-'+i}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+
+        <div *ngIf="sourceFileItem.value.length == 0" class="list-group">
+          <div class="list-group-item d-flex flex-row align-items-center">
+             <img src="assets/images/no-files.png" class="img-fluid" />
+             <div>No files added yet!</div>
+          </div>
+        </div>
+
+        <div *ngIf="sourceFileItem.value.length > 0" class="list-group">
+          <li *ngFor="let file of sourceFileItem.value; let fileIndex=index" class="list-group-item d-flex flex-row align-items-center">
+            <img [src]="getFullAssetUrl(file.thumbnailPath)" width="70" /> 
+            <div>{{file.fileId}}</div>
+            <div class="ml-auto d-flex flex-row">
+
+              <select class="form-control mr-2" id="exampleFormControlSelect1" (change)="onFileActionChanged(sourceFileItem.key, file.fileId, $event)">
+                <option value="SUMMARIZE" [selected]="file.fileAction == 'SUMMARIZE'">Summarize</option>
+                <option value="NONE" [selected]="file.fileAction == 'NONE'">Keep Original</option>
+              </select>
+
+
+              <button class="btn btn-primary mr-1" (click)="reorderFile(sourceFileItem.key, file.fileId, 'UP')" [disabled]="(fileIndex <= 0)"><fa-icon icon="arrow-up" ></fa-icon></button>
+              <button class="btn btn-primary mr-1" (click)="reorderFile(sourceFileItem.key, file.fileId, 'DOWN')" [disabled]="(fileIndex >= (sourceFileItem.value.length-1))"><fa-icon icon="arrow-down" ></fa-icon></button>
+              <button class="btn btn-danger" (click)="removeFile(sourceFileItem.key, file.fileId)"><fa-icon icon="times" ></fa-icon></button>
+            </div>       
+          </li>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

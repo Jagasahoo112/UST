@@ -1,0 +1,19 @@
+<div class="card">
+    <div class="card-header d-flex flex-row">
+        <fa-icon size="lg" icon="file-alt"></fa-icon> 
+        <div class="h5 text-dark ml-2">Meeting Summary</div>  
+    </div>
+    <div class="card-body">
+
+      <div *ngIf="!isProcessing && summaryText.length == 0" > <fa-icon icon="info-circle"></fa-icon> Summary not generated yet!</div>
+      
+      <div *ngIf="isProcessing" class="d-flex flex-column justify-content-center">
+        <div><img src="assets/images/loading-big.gif" height="100" /></div>
+        <div class="text-info p-3">Hold on! We're generating your Meeting Summary.</div>
+      </div>
+
+      <p class="card-text">
+        {{summaryText}}
+      </p>
+    </div>
+  </div>

@@ -1,0 +1,40 @@
+<div class="container-fluid mb-2">
+    <div class="row">
+        <div class="col-md-4">
+            <form class="d-flex flex-row-reverse mb-2">
+                <button class="btn btn-warning" data-toggle="modal" data-target="#filePickerModal">
+                    <fa-icon icon="upload"></fa-icon> UPLOAD RESUME
+                </button>
+            </form>
+            <app-resume-file-uploder></app-resume-file-uploder>
+            <app-resume-repository-search #resumeRepositorySearchComponent></app-resume-repository-search>
+            <div *ngIf="!isInitLoad" >
+                <div class="text-center text-muted">Found {{ sidePanelContent.length}} results</div>
+                    
+                <ul class="list-group" id="list-tab" role="tablist"  >
+                    <a *ngFor="let item of sidePanelContent ; let i = index" id="resume{{i}}" class="list-group-item list-group-item-action" style="cursor: pointer;" role="tab" (click)="pageContentDisplay(item,fileContent,i)" >
+                        <div class="d-flex">
+                            <fa-icon class="mr-2" icon="file-pdf" size="lg" ></fa-icon>
+                            <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" >{{item.fileName}}</div>
+                            <fa-icon class="ml-auto"  icon="chevron-right" ></fa-icon>
+                        </div>
+                    </a>
+                </ul>
+            </div>
+            
+        </div>
+        <div class="col-md-8">
+            <div class="d-flex flex-column align-items-center" *ngIf="isContentLoaded">
+                <img src="assets/images/no-results.png" class="img-fluid" />
+                <div class="d-flex flex-row justify-content-center">
+                  <div class="text-info">
+                    <fa-icon icon="info-circle" class="mr-2"></fa-icon>
+                  </div>
+                  <div class="text-info">Search And Select A Resume To View Content</div>
+                </div>
+              </div>
+            <app-resume-document-view-file *ngIf="!isInitLoad" #resumeDocumentViewFileComponent>
+            </app-resume-document-view-file>
+        </div>
+    </div>
+</div>

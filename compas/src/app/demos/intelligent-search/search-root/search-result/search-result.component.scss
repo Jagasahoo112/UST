@@ -1,0 +1,6 @@
+button[aria-expanded=true] .fa-chevron-right {
+    display: none;
+ }
+ button[aria-expanded=false] .fa-chevron-down {
+    display: none;
+ }
