@@ -1,0 +1,53 @@
+Database Name: postgres
+
+user id : compassadmin
+password : admin123
+
+*****************************************************
+[14-12-2021 12:40] Vishnu S Kumar
+A2356949-MSP01@ey.net
+
+[14-12-2021 12:40] Vishnu S Kumar
+*+a#cdcn5bFEd7x
+
+
+****************************************************
+Angular UI Build for PRDO
+
+ng build --prod --base-href /static/
+
+*****************************************************
+
+
+Docker things:
+
+docker build -t acemnpdaclacr01.azurecr.io/solutionslabportal:174 .
+docker run -it -p 8082:8082 acemnpdaclacr01.azurecr.io/solutionslabportal:174
+docker push acemnpdaclacr01.azurecr.io/solutionslabportal:174
+
+****************************************************
+
+Kubernets code:
+
+kubectl port-forward compass-postgres-66796cb7b6-5gxhm 5432:5432 --namespace compass
+
+
+kubectl apply -f deployment.yaml --namespace compass
+
+
+compass-solutionslabportal-7fb9dd648c-56ch6
+
+To get deployment details :
+kubectl apply -f deployment.yaml --namespace compass
+
+Get PODS :
+kubectl get pods -n compass
+
+get description details:
+kubectl describe pod compass-solutionslabportal-7b4d74669c-8rxpz -n compass
+
+
+
+
+az account set --subscription 77c9cf08-872f-4373-bf82-3ee56ec939a0
+az aks get-credentials --resource-group azrg-oth-acl-m-dev --name ACEMNPDACLAKS01

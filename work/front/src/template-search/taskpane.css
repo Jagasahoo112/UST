@@ -1,0 +1,104 @@
+/* 
+ * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ * See LICENSE in the project root for license information.
+ */
+
+ html,
+ body {
+     width: 100%;
+     height: 100%;
+     margin: 0;
+     padding: 0;
+ }
+ 
+ ul {
+     margin: 0;
+     padding: 0;
+ }
+
+b {
+    font-weight: bold;
+}
+
+.header {
+    padding-left: 30px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    background-color: #F4F4F4;
+}
+
+.header > h3 {
+    font-weight: 400;
+    font-size: 21px;
+    color: #333333;
+    padding: 15px 0;
+    margin: 0;
+ }
+
+.header > .close-button {
+    color: #666666;
+}
+
+.search-input {
+    padding-left: 30px;
+    padding-right: 15px;
+}
+
+.search-results {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.search-result {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.search-result > .name {
+    font-size: 16px;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-result > .name:hover {
+    text-decoration: underline;
+}
+
+.search-result > .date-and-author {
+    position: relative;
+    display: flex;
+    flex-direction: row nowrap;
+    font-size: 10px;
+}
+
+.date-and-author > .author {
+    position: absolute;
+    left: 100px;
+}
+
+.no-records-found
+{  
+  margin: auto;
+  font-size: large;
+  font-style: italic;
+  font-family: system-ui;
+  color: gray;
+}
+
+.textvalidation
+{
+    color: red;
+    font-size: x-small;
+    margin-left: 29px;
+}

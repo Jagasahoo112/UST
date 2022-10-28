@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
+  <Id>73bd805c-2610-4132-9a68-912519152c2d</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Contoso</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="EY Workbench"/>
+  <Description DefaultValue="A template to get started."/>
+  <IconUrl DefaultValue="https://localhost:3001/assets/ey-logo-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3001/assets/ey-logo-64.png"/>
+  <SupportUrl DefaultValue="https://www.contoso.com/help"/>
+  <AppDomains>
+    <AppDomain>https://www.contoso.com</AppDomain>
+  </AppDomains>
+  <Hosts>
+    <Host Name="Document"/>
+  </Hosts>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://localhost:3001/template-details.html"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <FunctionFile resid="Commands.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <CustomTab id="WorkbenchTab">
+              <Label resid="WorkbenchTab.Label"/>
+              <Group id="CommandsGroup">
+                <Label resid="CommandsGroup.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="TemplateDetails.16x16"/>
+                  <bt:Image size="32" resid="TemplateDetails.32x32"/>
+                  <bt:Image size="80" resid="TemplateDetails.80x80"/>
+                  <bt:Image size="16" resid="TemplateSearch.16x16"/>
+                  <bt:Image size="32" resid="TemplateSearch.32x32"/>
+                  <bt:Image size="80" resid="TemplateSearch.80x80"/>
+                </Icon>
+                <Control xsi:type="Button" id="TemplateDetailsButton">
+                  <Label resid="TemplateDetailsButton.Label"/>
+                  <Supertip>
+                    <Title resid="TemplateDetailsButton.Label"/>
+                    <Description resid="TemplateDetailsButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="TemplateDetails.16x16"/>
+                    <bt:Image size="32" resid="TemplateDetails.32x32"/>
+                    <bt:Image size="80" resid="TemplateDetails.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>Office.AutoShowTaskpaneWithDocument</TaskpaneId>
+                    <!-- <TaskpaneId>ButtonId1</TaskpaneId> -->
+                    <SourceLocation resid="TemplateDetails.Url"/>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="TemplateSearchButton">
+                  <Label resid="TemplateSearchButton.Label"/>
+                  <Supertip>
+                    <Title resid="TemplateSearchButton.Label"/>
+                    <Description resid="TemplateSearchButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="TemplateSearch.16x16"/>
+                    <bt:Image size="32" resid="TemplateSearch.32x32"/>
+                    <bt:Image size="80" resid="TemplateSearch.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId2</TaskpaneId>
+                    <SourceLocation resid="TemplateSearch.Url"/>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="ProposalAssistantButton">
+                  <Label resid="ProposalAssistantButton.Label"/>
+                  <Supertip>
+                    <Title resid="ProposalAssistantButton.Label"/>
+                    <Description resid="ProposalAssistantButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="ProposalAssistant.16x16"/>
+                    <bt:Image size="32" resid="ProposalAssistant.32x32"/>
+                    <bt:Image size="80" resid="ProposalAssistant.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId3</TaskpaneId>
+                    <SourceLocation resid="ProposalAssistant.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </CustomTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="TemplateDetails.16x16" DefaultValue="https://localhost:3001/assets/template-details-16.png"/>
+        <bt:Image id="TemplateDetails.32x32" DefaultValue="https://localhost:3001/assets/template-details-32.png"/>
+        <bt:Image id="TemplateDetails.80x80" DefaultValue="https://localhost:3001/assets/template-details-80.png"/>
+        <bt:Image id="TemplateSearch.16x16" DefaultValue="https://localhost:3001/assets/template-search-16.png"/>
+        <bt:Image id="TemplateSearch.32x32" DefaultValue="https://localhost:3001/assets/template-search-32.png"/>
+        <bt:Image id="TemplateSearch.80x80" DefaultValue="https://localhost:3001/assets/template-search-80.png"/>
+        <bt:Image id="ProposalAssistant.16x16" DefaultValue="https://localhost:3001/assets/ey-logo-16.png"/>
+        <bt:Image id="ProposalAssistant.32x32" DefaultValue="https://localhost:3001/assets/ey-logo-32.png"/>
+        <bt:Image id="ProposalAssistant.80x80" DefaultValue="https://localhost:3001/assets/ey-logo-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3001/commands.html"/>
+        <bt:Url id="TemplateDetails.Url" DefaultValue="https://localhost:3001/template-details.html"/>
+        <bt:Url id="TemplateSearch.Url" DefaultValue="https://localhost:3001/template-search.html"/>
+        <bt:Url id="ProposalAssistant.Url" DefaultValue="https://localhost:3001/proposal-assistant.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="Get started with your sample add-in!"/>
+        <bt:String id="CommandsGroup.Label" DefaultValue="Commands Group"/>
+        <bt:String id="TemplateDetailsButton.Label" DefaultValue="Template Details"/>
+        <bt:String id="TemplateSearchButton.Label" DefaultValue="Search Templates"/>
+        <bt:String id="ProposalAssistantButton.Label" DefaultValue="Auto Suggestion"/>
+        <bt:String id="WorkbenchTab.Label" DefaultValue="Workbench"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="Your sample add-in loaded succesfully. Go to the HOME tab and click the 'Template Details' button to get started."/>
+        <bt:String id="TemplateDetailsButton.Tooltip" DefaultValue="Click to show template details"/>
+        <bt:String id="TemplateSearchButton.Tooltip" DefaultValue="Click to show template search"/>
+        <bt:String id="ProposalAssistantButton.Tooltip" DefaultValue="Click to show proposal assistant"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: compass-solutionslabportal
+  labels:
+    app: compass-solutionslabportal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: compass-solutionslabportal
+  template:
+    metadata:
+      labels:
+        app: compass-solutionslabportal
+    spec:
+      nodeSelector:
+        "compass/node-type": small
+      containers:
+      - name: compass-solutionslabportal
+        image: acemnpdaclacr01.azurecr.io/solutionslabportal:174
+        resources:
+          requests:
+            cpu: 250m
+            memory: 1.5G
+          limits:
+            cpu: 500m
+            memory: 2G
+        ports:
+        - containerPort: 8082
+
+

@@ -1,0 +1,130 @@
+/* 
+ * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ * See LICENSE in the project root for license information.
+ */
+
+ html,
+ body {
+     width: 100%;
+     height: 100%;
+     margin: 0;
+     padding: 0;
+ }
+ 
+ ul {
+     margin: 0;
+     padding: 0;
+ }
+
+b {
+    font-weight: bold;
+}
+
+.header {
+    padding-left: 30px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    background-color: #F4F4F4;
+}
+
+.header > h3 {
+    font-weight: 400;
+    font-size: 21px;
+    color: #333333;
+    padding: 15px 0;
+    margin: 0;
+ }
+
+.header > .close-button {
+    color: #666666;
+}
+
+.detail-items {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex: 1 0 0;
+    flex: 1 0 0;
+    padding: 10px;
+ }
+
+ .detail-items > .detail-item {
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+
+.detail-item {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    font-size: 12px;
+}
+
+.detail-item > .label {
+    position: absolute;
+    font-weight: 600;
+}
+
+.detail-item > .value-and-sibling {
+    font-weight: 400;
+    margin-left: 120px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.detail-item > .value-and-sibling > span {
+    margin-right: 12px;
+    margin-bottom: 10px;
+}
+
+.value-sibling {
+    position: relative;
+    bottom: 4px;
+}
+
+.warning-box {
+    background-color: #FF8C00;
+    color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 4px 8px;
+    height: 16px;
+}
+
+.warning-box > .icon {
+    position: relative;
+    bottom: 1px;
+}
+
+.warning-box > .message {
+    margin-left: 5px;
+    font-size: 10px;
+}
+
+.download-link {
+    background-color: #106EBE;
+    color: white;
+    font-size: 10px;
+    padding: 4px 8px;
+    height: 16px;
+}
+
+.download-link:hover {
+    color: white;
+}
+
+.latest-template-indicator {
+    color: #106EBE;
+    border: 1px solid #106EBE;
+    font-size: 10px;
+    padding: 4px 8px;
+    height: 16px;
+}
