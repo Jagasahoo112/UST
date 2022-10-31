@@ -1,0 +1,52 @@
+
+  avatarInfo = [
+    {
+      Avatars: [
+        { index: "1", color: "red" },
+        { index: "2", color: "yellow" },
+      ],
+      Skins: [
+        { index: "3", color: "red" },
+        { index: "4", color: "yellow" },
+      ],
+      BodyGestures: [
+        { index: "5", color: "red" },
+        { index: "6", color: "yellow" },
+      ],
+    },
+  ];
+
+  a_info: avatarInfo[] = [];
+  copy: Map<string, avatarDetails[]> = new Map<string, avatarDetails[]>();
+
+  ngOnInit(): void {
+    this.currentYear = new Date().getFullYear();
+
+    console.log(this.avatarInfo.length);
+
+    // this.copy = new Map(this.avatarInfo);
+    this.avatarInfo.forEach((element) => {});
+    let resu = this.avatarInfo.map((resp: {}) => {
+      return Object.values(resp);
+    });
+    // console.log(resu);
+    // console.log(resu[0][2].map((r)));
+
+    //  var resu1 = resu[0].map((test: {}) => {
+    //    return Object.values(test);
+    //  });
+    for (let item of resu[0]) {
+    
+    }
+  }
+}
+
+export class avatarInfo {
+  keyName: string = "";
+  keyValue: avatarDetails[] = [];
+}
+
+export class avatarDetails {
+  index: string = "";
+  color: string = "";
+}

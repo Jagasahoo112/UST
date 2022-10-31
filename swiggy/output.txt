@@ -1,0 +1,119 @@
+ --- execution time for calaculting TFs & IDFs 14.356225490570068 seconds ---
+
+ --- execution time for comparing input file with templates 0.5256154537200928 seconds ---
+ query 100GL-Pre PIC enabler.docm matches the following:
+ 1: file = data/template_7_4_22/460GL(R)-Pre RAS.docm, score = 0.2141210284492019
+ 2: file = data/template_7_4_22/460GL(R)-Post RAS.docm, score = 0.21266535254615207
+ 3: file = data/template_7_4_22/441GL-Pre Doc after archive date.docm, score = 0.15122271551213373
+ 4: file = data/template_7_4_22/CT-3-1 Component ASM.docm, score = 0.15040769758691475
+ 5: file = data/template_7_4_22/440GL-Pre Doc after report date.docx, score = 0.14717407765358909
+
+
+ --- execution time for comparing input file with templates 0.223052978515625 seconds ---
+ query 110GL Significant unusual transaction form.docm matches the following:
+ 1: file = data/template_7_4_22/212GL(R)-SMPL Related parties.docm, score = 0.1453005461516459
+ 2: file = data/template_7_4_22/262GL-A-Pre GL AnalyzerSQL JE testing.docm, score = 0.11882124674117431
+ 3: file = data/template_7_4_22/262GL-B-Pre Journal entries testing form.docm, score = 0.1177841351429599
+ 4: file = data/template_7_4_22/262GL-B-Post Journal entries testing form.docm, score = 0.11756445565533458
+ 5: file = data/template_7_4_22/432GL-Summary review memorandum (SRM).docm, score = 0.09093526770690608
+
+
+ --- execution time for comparing input file with templates 0.2675299644470215 seconds ---
+ query 130GL (R)-Pre-Mgmt specialist.docm matches the following:
+ 1: file = data/template_7_4_22/131GL(R)-Pre EY specialist.docm, score = 0.4678785413418005
+ 2: file = data/template_7_4_22/132GL-Ext spec contract.docx, score = 0.1896894628938976
+ 3: file = data/template_7_4_22/263GL(R)-Use of IA-Others.docm, score = 0.1091869780077897
+ 4: file = data/template_7_4_22/PT-3 Internal auditors work.docm, score = 0.07948453547944428
+ 5: file = data/template_7_4_22/212GL(R)-SMPL Related parties.docm, score = 0.07643211191749263
+
+
+ --- execution time for comparing input file with templates 0.49500250816345215 seconds ---
+ query 2.docx matches the following:
+ 1: file = data/template_7_4_22/1.docx, score = 0.7434486379428759
+ 2: file = data/template_7_4_22/232GL(R)-Understand IT process.docm, score = 0.743163524716371
+ 3: file = data/template_7_4_22/230gl-it planning memo.docx, score = 0.09163692472433504
+ 4: file = data/template_7_4_22/231gl-it environment.docx, score = 0.0788049025061168
+ 5: file = data/template_7_4_22/107GL Service org eval.docx, score = 0.0661903922010332
+
+
+ --- execution time for comparing input file with templates 0.23200225830078125 seconds ---
+ query 211GL(R)-SMPL Laws-regs.docm matches the following:
+ 1: file = data/template_7_4_22/412GL LOR-TCWG NC laws-regs.docx, score = 0.14216475684989222
+ 2: file = data/template_7_4_22/410GL(R) Letter of representations (LOR)-FS.docx, score = 0.1341613382235854
+ 3: file = data/template_7_4_22/213GL(R)-SMPL Litigation.docm, score = 0.12824164617627654
+ 4: file = data/template_7_4_22/212GL(R)-SMPL Related parties.docm, score = 0.10369554734039957
+ 5: file = data/template_7_4_22/CT-4 Early warning memorandum.docm, score = 0.07297159394652064
+
+
+ --- execution time for comparing input file with templates 0.6087958812713623 seconds ---
+ query 262GL-A-Post GL Analyzer JE testing.docm matches the following:
+ 1: file = data/template_7_4_22/262GL-A-Pre GL AnalyzerSQL JE testing.docm, score = 0.8768617137289334
+ 2: file = data/template_7_4_22/262GL-B-Post Journal entries testing form.docm, score = 0.5330261655372133
+ 3: file = data/template_7_4_22/262GL-B-Pre Journal entries testing form.docm, score = 0.5122267070362941
+ 4: file = data/template_7_4_22/573GL General Ledger Analyzer IPE documentation.docx, score = 0.21932653741569114
+ 5: file = data/template_7_4_22/SW-1-SS Instruct SS.docm, score = 0.07153620728118176
+
+
+ --- execution time for comparing input file with templates 0.32710838317871094 seconds ---
+ query 267GL-Digital asset auditing considerations.docx matches the following:
+ 1: file = data/template_7_4_22/571GL-BCAR data extraction memo.docx, score = 0.1079916607047443
+ 2: file = data/template_7_4_22/212GL(R)-SMPL Related parties.docm, score = 0.046943470513052483
+ 3: file = data/template_7_4_22/Script for 280-E Learning Demo.docx, score = 0.04465138659404659
+ 4: file = data/template_7_4_22/432GL-Summary review memorandum (SRM).docm, score = 0.043102524631114005
+ 5: file = data/template_7_4_22/SW-1-SS Instruct SS.docm, score = 0.04094991398564563
+
+
+ --- execution time for comparing input file with templates 0.25417399406433105 seconds ---
+ query 3.docx matches the following:
+ 1: file = data/template_7_4_22/101GL(R) Global annual independence program.docx, score = 0.0989108026436876
+ 2: file = data/template_7_4_22/433GL-IND  Independence consultation template.docx, score = 0.07619101177659701
+ 3: file = data/template_7_4_22/620GL 20-F and FPI registration statement checklist.docx, score = 0.07314740256538564
+ 4: file = data/template_7_4_22/490GL(R) Illustrative independence communication.docx, score = 0.07293100061738754
+ 5: file = data/template_7_4_22/PT-1 Key information central procedures and group engagement agreement details.docm, score = 0.07022873427587017
+
+
+ --- execution time for comparing input file with templates 0.18283820152282715 seconds ---
+ query 400GL(R)-Legal letter standard.docx matches the following:
+ 1: file = data/template_7_4_22/401GL-Legal letter first year.docx, score = 0.3706978007921503
+ 2: file = data/template_7_4_22/213GL(R)-SMPL Litigation.docm, score = 0.26664526038625724
+ 3: file = data/template_7_4_22/410GL(R) Letter of representations (LOR)-FS.docx, score = 0.08343633234877217
+ 4: file = data/template_7_4_22/412GL LOR-TCWG NC laws-regs.docx, score = 0.08201329897265776
+ 5: file = data/template_7_4_22/620GL 20-F and FPI registration statement checklist.docx, score = 0.08038344985910059
+
+
+ --- execution time for comparing input file with templates 0.22499775886535645 seconds ---
+ query 461GL(R) RAS-CMT.docx matches the following:
+ 1: file = data/template_7_4_22/465GL(R) RAS-Cross-border SEC.docx, score = 0.3941170968400031
+ 2: file = data/template_7_4_22/463GL(R)-RAS-RR.docx, score = 0.3202163327503469
+ 3: file = data/template_7_4_22/462GL(R)-RAS-ITR.docx, score = 0.24466529982330606
+ 4: file = data/template_7_4_22/464GL(R) RAS-CL.docx, score = 0.20074970285235452
+ 5: file = data/template_7_4_22/460GL(R)-Post RAS.docm, score = 0.10501160035731419
+
+
+ --- execution time for comparing input file with templates 0.17000389099121094 seconds ---
+ query 571GL-WA Data extraction-Warranty Analyzer.docx matches the following:
+ 1: file = data/template_7_4_22/571-P&C Helix PC NL  (Spotfire) Data extraction memo.docx, score = 0.8783327966420935
+ 2: file = data/template_7_4_22/571GL Helix GL_SL data extract.docx, score = 0.8378476355409872
+ 3: file = data/template_7_4_22/571GL-BCAR data extraction memo.docx, score = 0.6211978393575646
+ 4: file = data/template_7_4_22/572GL-A.2 Helix DA delivery-PPE.docx, score = 0.4852363228404295
+ 5: file = data/template_7_4_22/572GL-A.1 Helix DA delivery-Payroll.docx, score = 0.47814745963806016
+
+
+ --- execution time for comparing input file with templates 0.20095372200012207 seconds ---
+ query CT-1 Acknowledgement.docm matches the following:
+ 1: file = data/template_7_4_22/CT-9 Final confirmation.docm, score = 0.4260789019542593
+ 2: file = data/template_7_4_22/CT-2 Independence confirmation.docm, score = 0.3680333552759615
+ 3: file = data/template_7_4_22/CT-7 Component SAD.docm, score = 0.2191005400881572
+ 4: file = data/template_7_4_22/CT-4 Early warning memorandum.docm, score = 0.20902577938126277
+ 5: file = data/template_7_4_22/CT-8 Component SOCD.docm, score = 0.20204648259164049
+
+
+ --- execution time for comparing input file with templates 0.332564115524292 seconds ---
+ query SW-1-FS Instruct FS.docm matches the following:
+ 1: file = data/template_7_4_22/SW-1-SS Instruct SS.docm, score = 0.8073791781947899
+ 2: file = data/template_7_4_22/SW-1-RS Instruct RS.docm, score = 0.27044057642214075
+ 3: file = data/template_7_4_22/SW-1-SP Instruct SP.docm, score = 0.19998263108722958
+ 4: file = data/template_7_4_22/PT-1 Key information central procedures and group engagement agreement details.docm, score = 0.17429809915465141
+ 5: file = data/template_7_4_22/PT-2 Timetable and PT contacts.docm, score = 0.14264831352124588
+
+ --- execution time for calaculting TFs & IDFs 80.70202088356018 seconds ---

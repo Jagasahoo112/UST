@@ -1,0 +1,423 @@
+import { Component, OnInit,ViewChild,Input,Output,EventEmitter } from '@angular/core';
+import {DocumentComparisionService} from 'src/app/services/document-comparision.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ToastrService } from 'ngx-toastr';
+
+import{ ComparisiondocModel} from '../model/ComparisiondocModel';
+declare var $: any;
+
+
+@Component({
+  selector: 'app-comparision-document',
+  templateUrl: './comparision-document.component.html',
+  styleUrls: ['./comparision-document.component.scss']
+})
+export class ComparisionDocumentComponent implements OnInit {
+
+  @ViewChild("fileUploader") fileUploader;
+  @Input() public sourceFiles: any;
+  @Output() public fileListChanged = new EventEmitter();
+
+  fileIndexSelectionStatusList = [];
+  fileUploaderActiveTabIndex = 0;
+  isUploadingFiles = false;
+  isUploadingFiles1 = false;
+  userId="";
+  files="";
+  categorizedFileList = null;
+  isFileSelected = true;
+  isFileSelected1 = true;
+  error:any;
+  checkdata:boolean=false;
+  private selectedCategoryForFileAdd = null;
+  
+
+  @Input() allowMultipleFiles: boolean = true;
+  public uploadedFiles: Array<File> = [];
+  public uploadedFiles1: Array<File> = [];
+  public isDisabled: boolean = false;
+  public isDisabled1: boolean = false;
+  sourcetext:any;
+  targettext:any;
+  addition:any; 
+  deletion:any; 
+  adddellist: ComparisiondocModel[] = [];  
+  sourceadddellist: ComparisiondocModel[] = [];
+  innerhtml:any;
+  colorcode=[];
+  diffarray:any;
+  diffarraysource:any;
+  diffarrayscore:any
+  isduplicateContentLoaded:boolean=true;
+  finaltargettext:ComparisiondocModel[] = [];
+  finalsourcetext:ComparisiondocModel[] = [];
+  tempsource:ComparisiondocModel[] = [];
+  filename1:string;
+  filename2:string;
+  constructor(private searchFileUpload:DocumentComparisionService, private authenticationService:AuthenticationService,private toastr: ToastrService) { }
+
+  ngOnInit(): void {
+    let loggedInUserId = this.authenticationService.getAuthenticatedUser();
+    let loggedInUser = this.authenticationService.getAuthenticatedUser();
+    this.userId = loggedInUserId.userId.replace(/-/g,'');
+    this.files = loggedInUser.files;
+     
+
+     
+    this.colorcode=["yellow","blue","green","teal","purple","maroon","purple","teal","aqua","red","blue","green","yellow","white","maroon","purple","teal","aqua","red","blue","green","yellow","white","maroon","purple","teal","aqua","red","blue","green","yellow","white","maroon","purple","teal","aqua"];
+  }
+
+  addFilesToList(){
+    $('#filePickerModal').modal('toggle');
+    let selectedFiles = this.sourceFiles.filter((element, index, array) => {
+      return this.fileIndexSelectionStatusList[index];
+    });
+
+    selectedFiles = selectedFiles.map(f=>{
+      return {...f, fileAction:"NONE"};
+    });
+
+    this.categorizedFileList[this.selectedCategoryForFileAdd] = this.categorizedFileList[this.selectedCategoryForFileAdd].concat(selectedFiles);
+    for (let i = 0; i < this.fileIndexSelectionStatusList.length; i++) {
+      this.fileIndexSelectionStatusList[i] = false;
+    }
+  }
+
+  getTargetColorCode = (index) => {
+  
+    let res;
+      for(let j=0;j<this.diffarray.length; j++) {      
+      let elArr = this.diffarray[j]; 
+        for(let p=0;p<elArr.length; p++) {   
+            //  console.log("elArr[p].indexof(index",elArr[p].indexof(index));
+            //  console.log("index",index);
+             if(elArr[p].length>1)
+             {
+              for(let f=0;f<elArr[p].length; f++) { 
+                if(elArr[p][f]==index) {
+                  res = this.colorcode[j];
+                }
+              }
+              
+             }
+             else
+             {
+              if(elArr[p]==index) {
+                res = this.colorcode[j];
+                break;
+              }
+             }
+         
+        } 
+    }
+    return res;
+  }
+  getSourceColorCode = (index) => { 
+    let res;
+    for(let j=0;j<this.diffarraysource.length; j++) {      
+      let elArr = this.diffarraysource[j]; 
+        for(let p=0;p<elArr.length; p++) { 
+            
+          if(elArr[p]==index) {
+            res = this.colorcode[j];
+            break;
+          }
+          
+        } 
+    }
+    return res;
+  }
+   
+  getsourcescore(index)
+  {
+    let checkvalue=false;
+    let res;
+    for(let j=0;j<this.diffarray[0].length; j++) {    
+        
+      let elArr = this.diffarrayscore[j]; 
+      for(let f=0;f<this.diffarray[0][j].length; f++) { 
+        if(this.diffarray[0][j][f]==index) {
+          res = elArr[j];
+          checkvalue=true;
+          break;
+        }
+      }
+      
+          
+    }
+    return [Math.round(res) , checkvalue];;
+  }
+
+  uploadFiles(){
+    this.isUploadingFiles = true;
+    this.isUploadingFiles1 = true;
+
+     let postData = {userId:this.userId};
+     console.log("ascascasc");
+     this.uploadedFiles.forEach((file, index) => {
+       this.filename1=file.name;
+
+    });
+    this.uploadedFiles1.forEach((file, index) => {
+      this.filename2=file.name;
+
+
+    });
+      
+     this.searchFileUpload.uploadFiles(postData,this.uploadedFiles,this.uploadedFiles1,
+      (result) => {
+        this.isduplicateContentLoaded=false;
+        this.checkdata=true;
+        this.adddellist=[];
+        console.log("result",result);
+      this.isUploadingFiles = false;
+      this.isUploadingFiles1 = false; 
+      this.sourcetext=result.entities.source;
+      this.targettext=result.entities.target;
+      this.addition=result.add;
+      this.deletion=result.del;
+      this.diffarray=result.diff[0].target;
+      this.diffarraysource=result.diff[0].source;
+      this.diffarrayscore=result.diff[0].score;
+      var index1=0;
+      var add1=false;
+      var list="";
+
+        var count=this.sourcetext.length+this.addition.length;
+     for(var j=0;j<count;j++)
+     {
+      const data: ComparisiondocModel = new ComparisiondocModel();    
+      for(var k=0;k<this.addition.length;k++)
+      {
+        if(this.addition[k]==j){
+          add1=true;
+
+          break;
+        }  
+      }
+      if(add1){
+        data.type="added";
+        data.image=true;
+      } 
+      else{
+        data.type="normal";
+        data.image=false;
+      }      
+      list=this.sourcetext[j].text;
+       data.index=index1;
+       data.list=list; 
+      this.tempsource.push(data); 
+      add1=false;
+      
+     }
+
+      this.sourcetext.forEach(element => {
+        const data: ComparisiondocModel = new ComparisiondocModel();    
+        for(var k=0;k<this.addition.length;k++)
+        {
+          if(this.addition[k]==index1){
+            add1=true;
+
+            break;
+          }  
+        }
+        if(add1){
+          data.type="added";
+          data.image=true;
+        } 
+        else{
+          data.type="normal";
+          data.image=false;
+        }
+        list=element.text;
+         data.index=index1;
+         data.list=list;
+         
+        
+        this.finalsourcetext.push(data);
+        index1=index1+1;
+        add1=false;
+      });
+      index1=0
+      add1=false;
+      this.targettext.forEach(element => {  
+        const data: ComparisiondocModel = new ComparisiondocModel();    
+        for(var k=0;k<this.deletion.length;k++)
+        {
+        if(this.deletion[k]==index1){
+          add1=true;
+          break;
+        }  
+       }
+        if(add1){
+          data.type="deleted";
+           
+          data.image=true;
+        } 
+        else{
+          data.type="normal";
+          data.image=false;
+
+        }
+        list=element.text;
+         data.index=index1;
+         data.list=list;
+         
+        this.finaltargettext.push(data);
+        index1=index1+1;
+        add1=false;
+      });
+
+      console.log("finalsourcetext",this.finalsourcetext);
+      console.log("finaltargettext",this.finaltargettext);
+      console.log("diffarray",this.diffarray);
+      var index=0;
+      const data: ComparisiondocModel = new ComparisiondocModel(); 
+      //for(var k=0;k<this.targettext[0].length;k++) 
+      this.finaltargettext.forEach(element => {      
+      const data: ComparisiondocModel = new ComparisiondocModel(); 
+        var add=false;
+        var  list="";
+        for(var k=0;k<this.addition.length;k++)
+        {
+          if(this.addition[k]==index){
+            add=true;
+
+            break;
+          }  
+        }
+        if(add){
+         
+          list ="<div class='list-group-item list-group-item-success'>"+element.list+" </div>";
+
+          data.image=true;
+        } 
+        else{
+          if(element.type=="deleted")
+          {
+            let obj = this.finalsourcetext.find(o => o.index === index);
+            
+          list ="<div class='list-group-item list-group-item-danger'><s>"+obj.list+"</s> </div>";
+
+            data.type="deleted";
+          }
+          else{
+          list="<div class='list-group-item list-group-item-light'>"+element.list+" </div>";
+          data.type="normal";
+          }
+           
+          data.image=false;
+        }
+         
+         data.index=index;
+         data.list=list;
+        // data.type=list;
+        
+        this.adddellist.push(data);
+        index=index+1;
+       });
+       this.sourceadddellist=[];
+       var index=0;
+       this.finalsourcetext.forEach(element => {      
+        const data: ComparisiondocModel = new ComparisiondocModel(); 
+        var add=false;
+          var  list="";
+          for(var k=0;k<this.deletion.length;k++)
+          {
+          if(this.deletion[k]==index){
+            add=true;
+            break;
+          }  
+         }
+          if(add){
+            list ="<div class='list-group-item list-group-item-danger'>"+element.list+" </div>";
+             
+            data.image=true;
+          } 
+          else{
+            if(element.type=="added")
+            {
+              let obj = this.finaltargettext.find(o => o.index === index);
+            list ="<div class='list-group-item list-group-item-success'><s>"+obj.list+"</s> </div>";
+
+              data.type="added";
+            }
+            else{
+            list="<div class='list-group-item list-group-item-light'>"+element.list+" </div>";
+            data.type="normal";
+            }
+            data.image=false;
+          }
+         
+           data.index=index;
+           data.list=list;
+          // data.type=list;
+          this.sourceadddellist.push(data);
+          index=index+1;
+         });
+       
+         this.sourceadddellist.push(data); 
+      $("#filePickerModal").modal("hide")
+      }, (error) => {
+        this.isUploadingFiles = false;
+        this.isUploadingFiles1 = false;
+        this.showFailureMessageToaster(error);
+      });
+
+
+  }
+
+
+  setFileUploaderActiveTabIndex(index) {
+    this.fileUploaderActiveTabIndex = index;
+  }
+
+  fileSelected(){
+    if(this.uploadedFiles.length > 0){
+      this.isFileSelected = true;
+       
+    }
+    
+  }
+  fileSelected1(){
+    if(this.uploadedFiles1.length > 0){
+      this.isFileSelected1 = true;
+      
+    }
+    
+  }
+  setSourceFiles(sourceFiles) {
+    this.sourceFiles = sourceFiles;
+   
+
+    this.fileIndexSelectionStatusList = new Array(this.sourceFiles.length);
+    this.fileIndexSelectionStatusList.fill(false);
+  }
+  showSuccessMessageToaster(){
+    this.toastr.success("File Uploaded successfull");
+}
+showFailureMessageToaster(error){
+  this.toastr.error("Server error, please try again after some time");
+}
+
+generatedocument()
+{
+  // const filelist: Researchtemplatefolelist = new Researchtemplatefolelist();
+
+  // if( this.optionalresult.length>0)
+  // {
+  //       let values = [];
+  //       for(let k=0; k<this.optionalresult.length; k++){ 
+  //           //filelist.category_name=this.optionalresult[k].Category_name;
+  //           filelist.category_name=this.optionalresult[k].name;
+  //           //filelist.id=this.optionalresult[k].id;
+
+  //           values.push(this.optionalresult[k].name); 
+  //          // if(filelist.)
+  //          }
+  //          filelist.item=values;
+  // }
+  // console.log(filelist);
+
+}
+}
